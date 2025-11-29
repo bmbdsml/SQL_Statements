@@ -1,0 +1,237 @@
+<html>
+<body>
+<h1 style="color:#000080;"> Create Procedure (Examples)</h1>
+<div id="cons">
+<pre>
+<b style="color:#800080;"> 1. Simple [ SELECT Query ] Procedure </b>
+
+	<b>CREATE PROCEDURE </b>GetAllEmployees
+
+	AS
+
+	<b>BEGIN</b>
+	    SELECT * FROM employees;
+	<b>END;</b>
+
+<b style="color:#800080;"> 2. [ Insert Record ] Procedure </b>
+
+	<b>CREATE PROCEDURE </b>InsertEmployee
+
+	    @FirstName NVARCHAR(50),
+	    @LastName NVARCHAR(50),
+	    @JobTitle NVARCHAR(50)
+
+	AS
+	
+	<b> BEGIN</b>
+	
+		<b>INSERT INTO </b>employees (FirstName, LastName, JobTitle)
+
+	    <b>VALUES </b>(@FirstName, @LastName, @JobTitle);
+
+	<b>END;</b>
+
+<b style="color:#800080;"> 3. [ Update Record ] Procedure </b>
+
+	<b>CREATE PROCEDURE </b>UpdateEmployee
+
+	    @EmployeeID INT,
+	    @FirstName NVARCHAR(50),
+
+	    @LastName NVARCHAR(50),
+	    @JobTitle NVARCHAR(50)
+
+	AS
+
+	<b>BEGIN </b>
+
+	    <b>UPDATE </b>employees
+
+	    <b>SET </b>FirstName = @FirstName,
+
+	        LastName = @LastName,
+
+	        JobTitle = @JobTitle
+
+	    <b>WHERE </b>EmployeeID = @EmployeeID;
+		
+	<b>END; </b>
+
+<b style="color:#800080;"> 4. [ Delete Record ] Procedure </b>
+
+	<b>CREATE PROCEDURE </b>DeleteEmployee
+
+	    @EmployeeID INT
+
+	AS
+
+	<b> BEGIN</b>
+
+	    <b>DELETE FROM </b>employees
+
+	    <b>WHERE </b>EmployeeID = @EmployeeID;
+
+	<b>END;</b>
+
+<b style="color:#800080;"> 5. [ Count Records ] Procedure </b>
+
+	<b>CREATE PROCEDURE </b>CountEmployees
+
+	AS
+
+	<b>BEGIN</b>
+
+	    <b>SELECT COUNT(*) </b>AS TotalEmployees
+
+	    <b>FROM </b>employees;
+
+	<b>END;</b>
+
+<b style="color:#800080;"> 6. [ Conditional Logic (If-Else) ] Procedure </b>
+
+	<b>CREATE PROCEDURE </b>CheckJobTitle
+
+	    @EmployeeID INT
+
+	AS
+
+	<b>BEGIN</b>
+
+	    <b>DECLARE </b>@JobTitle NVARCHAR(50);
+
+	    <b>SELECT </b>@JobTitle = JobTitle
+
+	    <b>FROM </b>employees
+
+	    <b>WHERE </b>EmployeeID = @EmployeeID;
+
+	    <b>IF </b>@JobTitle = 'Manager'
+
+	    <b>BEGIN</b>
+
+	        PRINT 'This employee is a Manager';
+
+	    <b>END</b>
+
+	    <b>ELSE</b>
+
+	    <b>BEGIN</b>
+
+	        <b>PRINT </b>'This employee is not a Manager';
+
+	    <b>END</b>
+	<b>END;</b>
+
+<b style="color:#800080;"> 7. [ Transaction Control in a ] Procedure </b>
+
+	<b>CREATE PROCEDURE </b>InsertMultipleEmployees
+	
+	    @FirstName1 NVARCHAR(50),
+	    @LastName1 NVARCHAR(50),
+
+	    @JobTitle1 NVARCHAR(50),
+	    @FirstName2 NVARCHAR(50),
+
+	    @LastName2 NVARCHAR(50),
+	    @JobTitle2 NVARCHAR(50)
+	AS
+
+	<b>BEGIN</b>
+
+	    <b> BEGIN TRANSACTION;</b>
+	    
+	    <b>BEGIN TRY </b>
+
+
+	        <b>INSERT INTO </b>employees (FirstName, LastName, JobTitle)
+
+	        <b>VALUES </b>(@FirstName1, @LastName1, @JobTitle1);
+
+	        <b>INSERT INTO </b>employees (FirstName, LastName, JobTitle)
+
+	        <b>VALUES </b>(@FirstName2, @LastName2, @JobTitle2);
+	        
+	        <b>COMMIT TRANSACTION;</b>
+
+	    <b>END TRY</b>
+
+	    <b>BEGIN CATCH</b>
+
+	        <b>ROLLBACK TRANSACTION;</b>
+
+        	<b>PRINT 'An error occurred';</b>
+
+	    <b>END CATCH;</b>
+	<b>END;</b>
+
+<b style="color:#800080;"> 8. [ Dynamic SQL ] Procedure </b>
+
+	<b>CREATE </b>PROCEDURE ExecuteDynamicQuery
+
+	    @SQLQuery NVARCHAR(MAX)
+
+	AS
+
+	<b>BEGIN</b>
+
+	    <b>EXEC </b>sp_executesql @SQLQuery;
+
+	<b>END;</b>
+
+<b style="color:#800080;"> 9. [ Procedure with Output ] Parameter </b>
+
+	<b>CREATE PROCEDURE </b>GetEmployeeSalary
+
+	    @EmployeeID INT,
+
+	    @Salary DECIMAL(10, 2) OUTPUT
+
+	AS
+
+	<b>BEGIN</b>
+
+	    <b>SELECT </b>@Salary = Salary
+
+	    <b>FROM </b>employees
+
+	    <b>WHERE </b>EmployeeID = @EmployeeID;
+
+	<b>END</b>;
+
+<b style="color:#800080;"> 10. [ Procedure with ] Cursor </b>
+
+	<b>CREATE PROCEDURE </b>GetEmployeeDetails
+
+	AS
+
+	<b>BEGIN</b>
+
+	    <b>DECLARE </b>@EmployeeID INT, @FirstName NVARCHAR(50), @LastName NVARCHAR(50);
+
+	    <b>DECLARE </b>EmployeeCursor CURSOR FOR
+
+        <b>SELECT </b>EmployeeID, FirstName, LastName FROM employees;
+    
+	    <b>OPEN </b>EmployeeCursor;
+
+	    <b>FETCH NEXT FROM </b>EmployeeCursor INTO @EmployeeID, @FirstName, @LastName;
+    
+	    <b>WHILE </b>@@FETCH_STATUS = 0
+
+	    <b>BEGIN</b>
+
+	        <b>PRINT </b>'Employee ID: ' + CAST(@EmployeeID AS NVARCHAR) + ', Name: ' + @FirstName + ' ' + @LastName;
+
+	        <b>FETCH NEXT FROM </b>EmployeeCursor INTO @EmployeeID, @FirstName, @LastName;
+
+	    <b>END</b>
+
+	    <b>CLOSE </b>EmployeeCursor;
+
+	    <b>DEALLOCATE </b>EmployeeCursor;
+
+	<b>END;</b>
+</pre>
+</div>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<html>
+<body>
+<h1 style="color:#000080;"> Delete Statement (Examples)</h1>
+<div id="cons">
+<pre>
+
+<b style="color:#800080;"> 1 < All Rows > </b>
+
+	<b>DELETE FROM </b>Employees;
+
+<b style="color:#800080;">2 < Delete Based on Where Condition > </b>
+
+	<b>DELETE FROM </b>Employees WHERE DATEDIFF(YEAR, HireDate, GETDATE()) > 5;
+
+<b style="color:#800080;">3 < Delete Based on | Sub Query > </b>
+
+	<b>DELETE FROM </b>Orders WHERE CustomerID IN (SELECT CustomerID FROM Customers WHERE Country = 'USA');
+
+<b style="color:#800080;">4 < Delete Based on | JOIN > </b>
+
+	<b>DELETE </b> FROM Employees e
+
+	<b>INNER JOIN </b>Departments d ON e.DepartmentID = d.DepartmentID  WHERE d.Status = 'Closed';
+
+<b style="color:#800080;">5 < Delete Based on | LIKE > </b>
+
+	<b>DELETE FROM </b>Employees WHERE LastName LIKE 'S%';
+
+<b style="color:#800080;">6 < Delete Based on | AND or NOT > </b>
+
+	<b>DELETE FROM </b>Customers WHERE (Country = 'Canada' AND Age < 18) 
+
+			            OR CustomerID NOT IN (SELECT CustomerID FROM Orders);
+
+<b style="color:#800080;">7 < Delete Based on | Top N Rows > </b>
+
+	<b>DELETE TOP (5) FROM </b>Employees WHERE Department = 'Sales';
+
+<b style="color:#800080;">8 < Delete Based on | Date Range  > </b>
+
+	<b>DELETE FROM </b>Transactions WHERE TransactionDate < DATEADD(YEAR, -1, GETDATE());
+
+<b style="color:#800080;">9 < Delete Based on | Exists > </b>
+
+	<b>DELETE FROM </b>Customers WHERE NOT EXISTS (
+
+	    <b>SELECT 1 FROM </b>Orders WHERE Orders.CustomerID = Customers.CustomerID
+
+			               AND OrderDate > DATEADD(MONTH, -6, GETDATE())
+
+					       );
+
+<b style="color:#800080;">10 < Delete Based on | Null > </b>
+
+	<b>DELETE FROM </b>Customers WHERE Email IS NULL;
+
+<b style="color:#800080;">11 < Delete Based on | Transaction > </b>
+
+	<b>BEGIN TRANSACTION;</b>
+
+		<b>DELETE FROM </b>Employees WHERE EmployeeID = 123;
+
+			-- COMMIT if everything is okay, or ROLLBACK if there is an issue
+
+	<b>COMMIT;</b>
+
+</pre>
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,166 @@
+<html>
+<body>
+<h1 style="color:#000080;"> Create View (Examples)</h1>
+<div id="cons">
+<pre>
+
+<b style="color:#800080;"> 1. <  Simple View > </b>
+
+	 	 This view shows a list of employees and their departments from the `Employees` and `Departments` tables.
+
+	<b>CREATE VIEW </b>Employee Department View AS
+
+	<b>SELECT</b>
+
+	    e.EmployeeID,e.FirstName,e.LastName,e.Email,d.DepartmentName
+	
+	<b>FROM</b>
+	
+    Employees e
+	
+	INNER JOIN
+	
+    Departments d
+
+	ON
+
+    e.DepartmentID = d.DepartmentID;
+
+<b style="color:#800080;"> 2.  < View with WHERE clause > </b>
+
+		This view shows employees who are in the 'Sales' department.
+
+	<b>CREATE VIEW </b> Sales Employees View AS
+
+	<b>SELECT</b>
+
+	e.EmployeeID,e.FirstName,e.LastName,e.Email  
+
+	   <b>FROM</b> Employees e
+
+	INNER JOIN
+
+	    Departments d
+
+	ON
+	    e.DepartmentID = d.DepartmentID
+
+	WHERE d.DepartmentName = 'Sales';
+
+	-- SELECT * FROM EmployeeDepartmentView;
+	-- SELECT * FROM SalesEmployeesView;
+
+<b style="color:#800080;"> 3. < Department Sales Summary > </b>
+
+	<b>CREATE VIEW </b>Department Sales Summary AS
+
+	<b>SELECT</b>
+
+	    d.DepartmentName,COUNT(o.OrderID) AS TotalOrders,SUM(o.TotalAmount) AS TotalSales
+
+	<b>FROM</b> Orders o
+
+	INNER JOIN
+
+	    Employees e ON o.EmployeeID = e.EmployeeID
+ 
+	INNER JOIN Departments d ON e.DepartmentID = d.DepartmentID
+
+	GROUP BY  d.DepartmentName;
+
+<b style="color:#800080;"> 4: < Employee Service Status > </b>
+
+	<b>CREATE VIEW </b>Employee Service Status AS
+
+	<b>SELECT</b>
+
+	    EmployeeID,FirstName,LastName,DateHired,DATEDIFF(YEAR, DateHired, GETDATE()) AS YearsOfService,
+
+	    CASE
+
+	        WHEN DATEDIFF(YEAR, DateHired, GETDATE()) < 1 THEN 'New Employee'
+	
+        	WHEN DATEDIFF(YEAR, DateHired, GETDATE()) BETWEEN 1 AND 5 THEN 'Mid-Level'
+
+	        ELSE 'Senior'
+
+	    END AS ServiceStatus
+
+		<b>FROM</b> Employees;
+
+<b style="color:#800080;"> 5. < Department Top Salaries > </b>
+
+	<b>CREATE VIEW</b> DepartmentTopSalaries AS
+
+<b>	SELECT </b> d.DepartmentName,e.EmployeeID,e.FirstName,e.LastName,e.Salary <b>FROM</b> Employees e
+
+	INNER JOIN
+
+	    Departments d ON e.DepartmentID = d.DepartmentID
+
+	WHERE
+
+	    e.Salary = (SELECT MAX(Salary) FROM Employees WHERE DepartmentID = e.DepartmentID);
+
+<b style="color:#800080;"> 6. < Recent Orders > </b>
+
+	<b>CREATE VIEW</b> Recent Orders AS
+
+	<b>SELECT</b>
+
+	    OrderID,CustomerID,OrderDate,TotalAmount
+
+	<b>FROM</b>
+
+	    Orders
+
+	WHERE OrderDate >= DATEADD(DAY, -30, GETDATE());
+
+<b style="color:#800080;"> 7. < Customer Order Details > </b>
+
+	<b>CREATE VIEW </b>CustomerOrderDetails AS
+
+	<b>SELECT</b>
+
+	    c.CustomerID,c.CustomerName,o.OrderID,o.OrderDate,oi.ProductID,oi.Quantity,oi.UnitPrice
+
+	<b>FROM</b>
+
+	    Customers c
+
+	INNER JOIN
+
+	    Orders o ON c.CustomerID = o.CustomerID
+
+	INNER JOIN
+	    OrderItems oi ON o.OrderID = oi.OrderID;
+
+
+<b style="color:#800080;"> 8. < Distinct Product Categories ></b>
+
+	<b>CREATE VIEW </b>DistinctProductCategories AS
+
+	<b>SELECT </b>DISTINCT
+
+	    p.Category
+
+	<b>FROM</b>
+
+	    Product p
+
+	INNER JOIN  OrderItems oi ON p.ProductID = oi.ProductID;
+
+<b style="color:#800080;"> 9 < EmployeeUpperCaseNames > </b>
+
+	<b>CREATE VIEW </b>EmployeeUpperCaseNames AS
+
+	<b>SELECT</b>
+
+	    EmployeeID,UPPER(FirstName) AS FirstName,UPPER(LastName) AS LastName,UPPER(Email) AS Email
+
+	<b>FROM </b>Employees;
+
+</pre>
+</body>
+</html>
+ 

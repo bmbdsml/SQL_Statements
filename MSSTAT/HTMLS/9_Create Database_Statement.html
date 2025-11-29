@@ -1,0 +1,209 @@
+<html>
+<body>
+<h1 style="color:#000080;"> Create Database (Examples)</h1>
+<div id="cons">
+<pre>
+
+	<b> CREATE DATABASE </b> database_name;
+
+<b style="color:#800080;">Example 1:  Create a Basic Database </b>
+
+			This is the simplest way to create a database:
+
+	CREATE DATABASE MyDatabase;
+ 
+		This will create a new database named `MyDatabase` with default settings.
+
+<b style="color:#800080;"> Example 2:  Create a Database with Specific File Locations </b>
+
+		You can specify where the database files (data and log files) should be stored. For example:
+
+	<b> CREATE DATABASE </b> MyDatabase
+
+	<b> ON </b> 
+
+	(
+	    <b> NAME </b> = MyDatabase_Data,
+	    <b> FILENAME </b> = 'C:\SQLData\MyDatabase_Data.mdf',
+
+	    <b> SIZE </b> = 5MB,
+	    <b> MAXSIZE <b> = 100MB,
+
+	    FILEGROWTH = 5MB
+	)
+
+	<b> LOG ON </b> 
+
+	(
+	    <b> NAME </b> = MyDatabase_Log,
+	    <b> FILENAME </b> = 'C:\SQLData\MyDatabase_Log.ldf',
+
+	    <b> SIZE </b> = 2MB,
+	    <b> MAXSIZE </b> = 50MB,
+
+	    <b> FILEGROWTH </b> = 2MB
+	);
+ 
+
+	- `NAME`: Specifies the logical name of the data or log file.
+
+	- `FILENAME`: Specifies the physical location of the data or log file.
+
+	- `SIZE`: Sets the initial size of the file.
+
+	- `MAXSIZE`: Specifies the maximum size the file can grow to.
+
+	- `FILEGROWTH`: Determines how much the file should grow when more space is needed.
+
+<b style="color:#800080;"> Example 3:  Create a Database with Collation and Options </b>
+
+	<b> CREATE DATABASE </b> MyDatabase
+
+	<b> COLLATE </b> Latin1_General_CI_AS
+
+	<b> ON </b> 
+
+	(
+	    <b> NAME </b> = MyDatabase_Data,
+	    <b> FILENAME </b> = 'C:\SQLData\MyDatabase_Data.mdf',
+
+	    <b> SIZE </b>  = 10MB,
+	    <b> MAXSIZE </b> = 200MB,
+
+	    <b> FILEGROWTH </b> = 10MB
+	)
+
+	<b> LOG ON</b> 
+
+	(
+	    <b> NAME </b> = MyDatabase_Log,
+	    <b> FILENAME </b> = 'C:\SQLData\MyDatabase_Log.ldf',
+
+	    <b> SIZE </b> = 5MB,
+	    <b> MAXSIZE </b> = 100MB,
+
+	    <b> FILEGROWTH </b> = 5MB
+	)
+
+	<b> WITH </b> 
+
+	    <b> RECOVERY </b> = FULL,  -- Recovery model
+		
+	    <b> COMPATIBILITY_LEVEL </b> = 110; -- Compatibility with SQL Server 2012
+ 
+<b style="color:#800080;"> Example 4:  Create a Database with Filegroups </b>
+
+	<b> CREATE DATABASE </b> MyDatabase
+
+	<b> ON 
+
+	PRIMARY (</b> 
+
+	    <b> NAME </b> = MyDatabase_Data,
+	    <b> FILENAME </b> = 'C:\SQLData\MyDatabase_Data.mdf',
+
+	    <b> SIZE </b> = 10MB,
+	    <b> MAXSIZE </b> = 100MB,
+
+	    <b> FILEGROWTH </b> = 10MB
+	),
+
+	<b> FILEGROUP FG2 (</b> 
+
+	    <b> NAME </b> = MyDatabase_FG2,
+	    <b> FILENAME = </b> 'D:\SQLData\MyDatabase_FG2.ndf',
+
+	    <b> SIZE </b> = 10MB,
+	    <b> MAXSIZE </b> = 100MB,
+
+	    <b> FILEGROWTH </b> = 10MB
+	)
+
+	<b> LOG ON (</b> 
+
+	    <b> NAME </b> = MyDatabase_Log,
+	    <b> FILENAME </b> = 'E:\SQLData\MyDatabase_Log.ldf',
+
+	    <b> SIZE </b> = 5MB,
+	    <b> MAXSIZE </b> = 50MB,
+
+	    <b> FILEGROWTH </b> = 5MB
+	);
+
+		-  PRIMARY  is the main filegroup where the primary data file resides.
+
+		-  FG2  is a secondary filegroup where additional data files can be placed.
+
+<b style="color:#800080;">Example 5:  Create a Database with Specific Auto Close and Auto Shrink Settings </b>
+
+	<b> CREATE DATABASE </b> MyDatabase
+
+	ON
+
+	(
+	    <b> NAME </b> = MyDatabase_Data,
+	    <b> FILENAME <b> = 'C:\SQLData\MyDatabase_Data.mdf',
+
+	    SIZE = 10MB,
+	    FILEGROWTH = 10MB
+	)
+
+	LOG ON
+
+	(
+	    NAME = MyDatabase_Log,
+	    FILENAME = 'C:\SQLData\MyDatabase_Log.ldf',
+
+	    SIZE = 5MB,
+	    FILEGROWTH = 5MB
+	)
+
+	WITH
+
+	- AUTO_CLOSE = ON,  -- Automatically close the database when no users are connected
+	- AUTO_SHRINK = OFF;  -- Disable auto shrink
+	- AUTO_CLOSE : Automatically closes the database when there are no active connections, which can save system resources.
+	- AUTO_SHRINK : Automatically reduces the size of the database when space is freed.
+
+<b style="color:#800080;">Example 6:  Create a Database with a Specific Recovery Model </b>
+
+	CREATE DATABASE MyDatabase
+
+	ON
+
+	(
+	    NAME = MyDatabase_Data,
+	    FILENAME = 'C:\SQLData\MyDatabase_Data.mdf',
+
+	    SIZE = 10MB,
+	    FILEGROWTH = 10MB
+	)
+
+	LOG ON
+
+	(
+	    NAME = MyDatabase_Log,
+	    FILENAME = 'C:\SQLData\MyDatabase_Log.ldf',
+
+	    SIZE = 5MB,
+	    FILEGROWTH = 5MB
+	)
+
+	WITH RECOVERY = FULL;
+ 
+<b style="color:#800080;">Example 7:  Create a Database Using a Template Database </b>
+
+	You can also create a new database based on the structure of an existing template database (such as `model`).
+
+		CREATE DATABASE MyDatabase
+
+	ON (NAME = MyDatabase_Data, FILENAME = 'C:\SQLData\MyDatabase_Data.mdf')
+
+		LOG ON (NAME = MyDatabase_Log, FILENAME = 'C:\SQLData\MyDatabase_Log.ldf')
+
+	AS COPY OF model;
+ 
+</pre>
+</body>
+</html>
+

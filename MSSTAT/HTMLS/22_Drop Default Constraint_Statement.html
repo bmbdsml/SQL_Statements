@@ -1,0 +1,17 @@
+<html>
+<body>
+<h1 style="color:#000080;"> Drop Default Constraint Statement (Examples)</h1>
+<div id="cons">
+<pre>
+
+<b style="color:#800080;">1 < Drop Default Constraint > </b>
+
+	<b>SELECT </b>name <b>FROM </b>sys.default_constraints 
+
+	<b>WHERE </b>parent_object_id</b> = <b>OBJECT_ID</b>('YourTableName') <b>AND</b> col_name(parent_object_id, parent_column_id) = 'YourColumnName';
+
+	<b>ALTER TABLE </b>YourTableName <b>DROP CONSTRAINT </b>YourConstraintName;
+
+	<b>ALTER TABLE </b>Employees <b>DROP CONSTRAINT </b>DF_Employees_Salary;
+
+

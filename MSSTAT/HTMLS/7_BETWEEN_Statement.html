@@ -1,0 +1,89 @@
+<html>
+<body>
+<h1 style="color:#000080;"> Between Statement (Examples)</h1>
+<div id="cons">
+<pre>
+
+<b style="color:#800080;"> 1.  Example with Numbers: </b>
+
+			Let's say you have a `Sales` table and you want to find all sales amounts between 1000 and 5000:
+
+	<b> SELECT </b> * FROM Sales <b> WHERE </b> Amount <b> BETWEEN  </b> 1000 <b> AND </b> 5000;
+
+<b style="color:#800080;">   2.  Example with Dates: </b>
+
+			If you want to select records between two specific dates in a `Orders` table:
+
+	<b> SELECT </b> * FROM Orders <b> WHERE </b> OrderDate <b> BETWEEN </b> '2024-01-01' AND '2024-12-31';
+
+<b style="color:#800080;"> 3.  Example with Strings: </b>
+
+			If you're looking for records where the `ProductName` is alphabetically between certain values:
+
+	<b> SELECT </b> * FROM Products <b> WHERE </b> ProductName <b> BETWEEN </b> 'Apple' AND 'Orange';
+
+<b style="color:#800080;"> 4.  Example with Numeric Range (Inclusive): </b>
+
+			Suppose you have a `Employees` table, and you want to find employees whose salary falls between 30,000 and 60,000:
+	
+	<b> SELECT </b> EmployeeID, Name, Salary FROM Employees <b> WHERE </b> Salary <b> BETWEEN </b> 30000 AND 60000;
+
+<b style="color:#800080;"> 5.  Example with Date Range: </b>
+
+			If you want to find all orders made between two specific dates and filter by `OrderDate`:
+
+	<b> SELECT </b> OrderID, CustomerID, OrderDate FROM Orders <b> WHERE </b> OrderDate <b> BETWEEN </b> '2025-02-01' AND '2025-02-10';
+
+<b style="color:#800080;"> 6.  Example with Time Range: </b>
+
+			If you need to filter records based on a time range, say in a `FlightSchedules` table, 
+			you could use `BETWEEN` with `TIME` values:
+
+	<b> SELECT </b> FlightID, DepartureTime, ArrivalTime FROM FlightSchedules <b> WHERE </b> DepartureTime <b> BETWEEN </b> '06:00:00' AND '12:00:00';
+
+<b style="color:#800080;"> 7.  Example with Date and Time (Datetime Range): </b>
+
+		You could combine both date and time in a `BETWEEN` query, for instance, 
+		selecting logs within a particular datetime range in a `LogEntries` table:
+
+	<b> SELECT </b> LogID, LogMessage, LogDate FROM LogEntries <b> WHERE </b> LogDate <b> BETWEEN </b> '2025-01-01 10:00:00' AND '2025-01-31 18:00:00';
+
+<b style="color:#800080;"> 8.  Example with Strings (Alphabetical Range): </b>
+
+		If you're interested in getting products that start with certain letters, let's say between 'B' and 'M':
+
+		This query will return all products where the `ProductName` alphabetically falls between 'B' and 'M'.
+
+	<b> SELECT </b> ProductID, ProductName FROM Products <b> WHERE </b> ProductName <b> BETWEEN </b> 'B' AND 'M';
+
+<b style="color:#800080;"> 9.  Example with Negative Numbers: </b>
+
+		If your `Balance` field can have negative values (e.g., in a bank transactions table), 
+		you could use `BETWEEN` to find balances between -1000 and 0:
+
+	<b> SELECT </b> TransactionID, Balance FROM Transactions <b> WHERE </b> Balance <b> BETWEEN </b> -1000 AND 0;
+
+<b style="color:#800080;"> 10.  Example with `NOT BETWEEN`: </b>
+
+		You can also use the `NOT BETWEEN` operator to exclude a range of values. 
+	
+		For example, if you want to select employees whose salary is  not  between 30,000 and 60,000:
+
+	<b> SELECT </b> EmployeeID, Name, Salary FROM Employees <b> WHERE </b> Salary <b> NOT BETWEEN </b> 30000 AND 60000;
+
+<b style="color:#800080;"> 11.  Example with `BETWEEN` in an `ORDER BY` Clause: </b>
+
+		You can use `BETWEEN` in a query with an `ORDER BY` clause to order the records within the range:
+
+		This query will return all products priced between 10 and 100, sorted by price.
+
+	<b> SELECT </b> ProductID, ProductName, Price FROM Products <b> WHERE </b> Price <b> BETWEEN </b> 10 AND 100 ORDER BY Price;
+
+<b style="color:#800080;"> 12.  Example with `BETWEEN` on Floating-Point Numbers: </b>
+
+		If you're working with floating-point numbers, like measurements or percentages:
+
+		This query will return products with ratings between 4.0 and 5.0.
+
+	<b> SELECT </b> ProductID, ProductName, Rating FROM Products <b> WHERE </b> Rating <b> BETWEEN </b> 4.0 AND 5.0;
+

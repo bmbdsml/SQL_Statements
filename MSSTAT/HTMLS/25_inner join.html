@@ -1,0 +1,116 @@
+<html>
+<body>
+<h1 style="color:#000080;"> Inner Join (Examples)</h1>
+<div id="cons">
+<pre>
+
+<b style="color:#800080;"> Example 1: Orders & Customers </b>
+
+1. Orders table:
+
+	   | order_id | customer_id | order_date | total_amount |
+	   |----------|-------------|------------|--------------|
+	   | 1        | 101         | 2025-01-01 | 500          |
+	   | 2        | 102         | 2025-01-02 | 150          |
+	   | 3        | 103         | 2025-01-03 | 200          |
+
+2. Customers table:
+
+	   | customer_id | customer_name | email             |
+	   |-------------|---------------|-------------------|
+	   | 101         | John Doe      | john@example.com  |
+	   | 102         | Jane Smith    | jane@example.com  |
+	   | 103         | Sam Brown     | sam@example.com   |
+
+    To list the order details along with customer names:
+
+	SELECT Orders.order_id, Customers.customer_name, Orders.total_amount
+	
+	FROM Orders 
+	
+	INNER JOIN Customers
+	
+	ON Orders.customer_id = Customers.customer_id;
+
+     Result:
+
+	| order_id | customer_name | total_amount |
+	|----------|---------------|--------------|
+	| 1        | John Doe      | 500          |
+	| 2        | Jane Smith    | 150          |
+	| 3        | Sam Brown     | 200          |
+
+<b style="color:#800080;">  Example 2: Joining Products and Categories </b>
+
+	1. Products table:
+
+	   | product_id | product_name | category_id | price |
+	   |------------|--------------|-------------|-------|
+	   | 1          | Laptop       | 1           | 1000  |
+	   | 2          | Phone        | 2           | 700   |
+	   | 3          | Tablet       | 1           | 300   |
+	
+	2. Categories table:
+
+	   | category_id | category_name |
+	   |-------------|---------------|
+	   | 1           | Electronics   |
+	   | 2           | Mobile        |
+
+	To get the product names with their category names:
+
+
+	SELECT Products.product_name, Categories.category_name
+	
+	FROM Products
+	
+	INNER JOIN Categories
+	
+	ON Products.category_id = Categories.category_id;
+
+      Result:
+
+	| product_name | category_name |
+	|--------------|---------------|
+	| Laptop       | Electronics   |
+	| Phone        | Mobile        |
+	| Tablet       | Electronics   |
+
+
+<b style="color:#800080;"> Example 3: Joining Employees and Departments with Additional Filters </b>
+
+	1. Employees table:
+	
+	   | employee_id | name      | department_id |
+	   |-------------|-----------|---------------|
+	   | 1           | Alice     | 101           |
+	   | 2           | Bob       | 102           |
+	   | 3           | Charlie   | 101           |
+	   | 4           | David     | 103           |
+
+	2. Departments table:
+
+	   | department_id | department_name |
+	   |---------------|-----------------|
+	   | 101           | HR              |
+	   | 102           | IT              |
+	   | 103           | Finance         |
+
+	SELECT Employees.name, Departments.department_name
+	
+	FROM Employees
+	
+	INNER JOIN Departments
+	
+	ON Employees.department_id = Departments.department_id
+	
+	WHERE Departments.department_name IN ('HR', 'IT');
+
+      Result:
+
+	| name    | department_name |
+	|---------|-----------------|
+	| Alice   | HR              |
+	| Bob     | IT              |
+	| Charlie | HR              |
+

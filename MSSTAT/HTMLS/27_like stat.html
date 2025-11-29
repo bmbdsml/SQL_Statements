@@ -1,0 +1,38 @@
+<html>
+<body>
+<h1 style="color:#000080;"> Like Statement (Examples)</h1>
+<div id="cons">
+<pre>
+
+<b style="color:#800080;"> 1. Finding all employees whose name starts with "J": </b>
+
+	SELECT * FROM Employees WHERE FirstName LIKE 'J%';
+
+<b style="color:#800080;"> 2. Using _ (Underscore) to Match a Single Character: </b>
+
+	SELECT * FROM Employees WHERE FirstName LIKE 'J___';
+
+<b style="color:#800080;"> 3. Finding Names Containing a Specific Substring: </b>
+
+	SELECT * FROM Employees WHERE FirstName LIKE '%an%';
+
+<b style="color:#800080;"> 4. Finding Names Ending with a Specific Substring: </b>
+
+	SELECT * FROM Employees WHERE LastName LIKE '%son';
+
+<b style="color:#800080;"> 5. Combining LIKE with Other Conditions: </b>
+
+	SELECT * FROM Employees WHERE FirstName LIKE 'J%' AND Department = 'HR';
+
+<b style="color:#800080;"> 6. Using NOT LIKE to Exclude Patterns: </b>
+
+	SELECT * FROM Employees WHERE FirstName NOT LIKE 'J%';
+
+<b style="color:#800080;"> 7. Case Insensitivity (By Default in MSSQL): </b>
+
+	SELECT * FROM Employees WHERE FirstName LIKE 'j%';
+
+</pre>
+</div>
+</body>
+</html>

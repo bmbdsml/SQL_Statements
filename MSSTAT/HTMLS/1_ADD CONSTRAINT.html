@@ -1,0 +1,70 @@
+<html>
+<body>
+<h1 style="color:#000080;"> Add Constraint (Examples)</h1>
+<div id="cons">
+<pre>
+
+<b style="color:#800080;">  1.  Adding a Primary Key Constraint </b>
+
+		To add a primary key constraint to an existing column:
+ 
+		<b> ALTER TABLE </b> Employees 
+
+		<b> ADD CONSTRAINT </b> PK_Employees_ID <b> PRIMARY KEY </b> (EmployeeID);
+
+<b style="color:#800080;">   2.  Adding a Foreign Key Constraint </b>
+
+		To add a foreign key constraint between two tables:
+ 
+		<b> ALTER TABLE </b> Orders
+
+		<b> ADD CONSTRAINT </b> FK_Orders_EmployeeID <b> FOREIGN KEY </b> (EmployeeID)
+
+		<b> REFERENCES </b> Employees(EmployeeID);
+
+<b style="color:#800080;">   3.  Adding a Unique Constraint </b>
+
+		To ensure that all values in a column are unique:
+ 
+		<b> ALTER TABLE </b> Products
+
+		<b> ADD CONSTRAINT </b> UQ_ProductCode <b> UNIQUE </b> (ProductCode);
+
+<b style="color:#800080;">   4.  Adding a Check Constraint </b>
+
+		To add a constraint that ensures a column meets a specified condition:
+ 
+		<b> ALTER TABLE </b> Employees
+
+		<b> ADD CONSTRAINT </b> CHK_Age <b> CHECK </b> (Age >= 18);
+
+<b style="color:#800080;">   5.  Adding a Default Constraint </b>
+
+		To specify a default value for a column when no value is supplied:
+ 
+		<b> ALTER TABLE </b> Orders
+
+		<b> ADD CONSTRAINT </b> DF_OrderDate <b> DEFAULT </b> GETDATE() FOR OrderDate;
+
+<b style="color:#800080;">   6.  Adding a Not Null Constraint </b>
+
+		To add a `NOT NULL` constraint to a column:
+
+		<b> ALTER TABLE </b> Employees
+
+		<b> ALTER COLUMN </b> EmployeeName VARCHAR(100) <b> NOT NULL </b> ;
+
+		  <b> Example of Multiple Constraints </b> in One Statement:
+
+		<b> ALTER TABLE </b> Employees
+	
+		<b> ADD CONSTRAINT </b> PK_EmployeeID <b> PRIMARY KEY </b> (EmployeeID),
+
+		<b> CONSTRAINT </b> CHK_Age <b> CHECK </b> (Age >= 18),
+
+		<b> CONSTRAINT </b> UQ_Email <b> UNIQUE </b> (Email);
+ 
+</pre>
+</div>
+</body>
+</html>

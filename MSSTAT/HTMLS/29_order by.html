@@ -1,0 +1,115 @@
+<html>
+<body>
+<h1 style="color:#000080;"> Order By Statement (Examples)</h1>
+<div id="cons">
+<pre>
+
+<b style="color:#800080;"> 1. Sorting by a single column (Ascending Order) </b>
+
+	<b>SELECT </b>EmployeeID, FirstName, LastName, Salary
+
+	<b>FROM </b>Employees
+
+	<b>ORDER BY </b>Salary <b>ASC</b>;
+
+<b style="color:#800080;"> 2. Sorting by a single column (Descending Order) </b>
+
+	<b>SELECT </b>EmployeeID, FirstName, LastName, Salary 
+
+	<b>FROM </b>Employees
+
+	<b>ORDER BY </b>Salary <b>DESC</b>;
+
+<b style="color:#800080;"> 3. Sorting by multiple columns </b>
+
+	<b>SELECT</b> EmployeeID, FirstName, LastName, Salary
+
+	<b>FROM </b>Employees
+
+	<b>ORDER BY </b>LastName <b>ASC</b>, FirstName <b>ASC</b>;
+
+<b style="color:#800080;"> 1. Sorting by EmployeeID in Descending Order </b>
+
+	<b>SELECT </b>EmployeeID, FirstName, LastName, Salary
+
+	<b>FROM </b>Employees
+
+	<b>ORDER BY </b>EmployeeID <b>DESC</b>;
+
+<b style="color:#800080;"> 2. Sorting by FirstName and Salary in Ascending Order </b>
+
+	<b>SELECT </b>EmployeeID, FirstName, LastName, Salary
+
+	<b>FROM </b>Employees
+
+	<b>ORDER BY FirstName <b>ASC</b>, Salary <b>ASC</b>;
+
+<b style="color:#800080;"> 3. Sorting by Salary in Descending Order with NULL Values Last </b>
+
+	<b>SELECT </b>EmployeeID, FirstName, LastName, Salary
+
+	<b>FROM </b>Employees
+
+	<b>ORDER BY </b>Salary <b>DESC</b> NULLS LAST;
+
+<b style="color:#800080;"> 4. Sorting by LastName and FirstName (Case-insensitive) </b>
+
+	<b>SELECT </b>EmployeeID, FirstName, LastName, Salary
+
+	<b>FROM </b>Employees
+
+	<b>ORDER BY </b>LastName COLLATE SQL_Latin1_General_CP1_CI_AS <b>ASC</b>, FirstName COLLATE SQL_Latin1_General_CP1_CI_AS <b>ASC</b>;
+
+<b style="color:#800080;"> 5. Sorting by Salary and FirstName (Descending for Salary, Ascending for FirstName) </b>
+
+	<b>SELECT </b>EmployeeID, FirstName, LastName, Salary
+
+	<b>FROM </b>Employees
+
+	<b>ORDER BY </b>Salary <b>DESC</b>, FirstName <b>ASC</b>;
+
+<b style="color:#800080;"> 6. Sorting by LastName in Descending Order, and then EmployeeID in Ascending Order </b>
+
+	<b>SELECT </b>EmployeeID, FirstName, LastName, Salary
+
+	<b>FROM </b>Employees
+
+	<b>ORDER BY </b>LastName <b>DESC</b>, EmployeeID <b>ASC</b>;
+
+<b style="color:#800080;"> 7. Sorting by Salary and then by EmployeeID </b>
+
+	<b>SELECT </b>EmployeeID, FirstName, LastName, Salary
+
+	<b>FROM </b>Employees
+
+	<b>ORDER BY </b>Salary <b>ASC</b>, EmployeeID <b>ASC</b>;
+
+<b style="color:#800080;"> 8. Sorting by FirstName, LastName, and Salary (All Ascending) </b>
+
+	<b>SELECT </b>EmployeeID, FirstName, LastName, Salary
+
+	<b>FROM </b>Employees
+
+	<b>ORDER BY </b>FirstName ASC, LastName <b>ASC</b>, Salary <b>ASC</b>;
+
+<b style="color:#800080;"> 9. Sorting by Salary with a Limit of Top 5 Highest Paid Employees </b>
+
+	<b>SELECT TOP 5 </b>EmployeeID, FirstName, LastName, Salary
+
+	<b>FROM </b>Employees
+
+	<b>ORDER BY </b>Salary <b>DESC</b>;
+
+<b style="color:#800080;"> 10. Sorting by Salary and Filtering for Employees with Salary Greater than a Specific Amount </b>
+
+	<b>SELECT </b>EmployeeID, FirstName, LastName, Salary
+
+	<b>FROM </b>Employees
+
+	<b>WHERE </b>Salary > 50000
+
+	<b>ORDER BY </b>Salary <b>DESC</b>;
+</pre>
+</div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<html>
+<body>
+<h1 style="color:#000080;"> Drop Database Statement (Examples)</h1>
+<div id="cons">
+<pre>
+
+<b style="color:#800080;">1 < Drop | DB > </b>
+
+<b>DROP DATABASE <b>ExampleDB;
+
+<b style="color:#800080;"> 2 < Drop | IF DB Exist ></b>
+
+	<b>IF EXISTS (SELECT </b>name <b>FROM </b>sys.databases <b>WHERE </b>name = 'ExampleDB')
+
+	<b>BEGIN</b>
+	    <b>DROP DATABASE </b>ExampleDB;
+	<b>END</b>
+
+</pre>
+</body>
+</html>

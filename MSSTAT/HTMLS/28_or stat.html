@@ -1,0 +1,42 @@
+<html>
+<body>
+<h1 style="color:#000080;"> OR Statement (Examples)</h1>
+<div id="cons">
+<pre>
+
+<b style="color:#800080;"> 1. OR Statement for Character Fields </b> 
+
+	<b>SELECT <b>*  <b>FROM</b>  Employees <b>WHERE</b>  Department = 'Sales'  <b>OR</b>  Department = 'Marketing'; 
+
+<b style="color:#800080;"> 2. Selecting records with multiple conditions on different columns </b>
+
+	 <b>SELECT  </b>*  <b>FROM </b> Employees  <b>WHERE </b> Department = 'HR'  <b>OR </b> Salary > 70000;
+
+<b style="color:#800080;"> 3. Using OR with NULL values </b>
+
+	 <b>SELECT  </b>*  <b>FROM </b> Products  <b>WHERE </b> Discount  <b>IS NULL OR  </b>Discount = 20; 
+
+<b style="color:#800080;"> 4. Combining OR with AND </b>
+
+	 <b>SELECT  </b>*  <b>FROM </b> Employees  <b>WHERE  </b>(Department = 'Sales'  <b>OR  </b>YearsOfExperience > 10)  <b>AND </b> Salary > 50000;
+
+<b style="color:#800080;"> 5. Filtering based on multiple values in a column </b>
+
+	 <b>SELECT  </b>*  <b>FROM </b> Customers  <b>WHERE </b> City = 'New York'  <b>OR </b> City = 'Los Angeles'  <b>OR </b> City = 'Chicago';
+
+<b style="color:#800080;"> 6. Using OR with different data types (e.g., dates) </b>
+
+	 <b>SELECT  </b>*  <b>FROM </b> Orders  <b>WHERE </b> OrderDate = '2024-01-01'  <b>OR </b> OrderDate = '2024-02-10';
+
+<b style="color:#800080;"> 7. Using OR for a range of values </b>
+
+	 <b>SELECT <b> *  <b>FROM </b> Products  <b>WHERE </b> CategoryID = 1  <b>OR </b> CategoryID = 2  <b>OR </b> CategoryID = 5;
+
+<b style="color:#800080;"> 8. Using OR with LIKE (for pattern matching) </b>
+
+	 <b>SELECT </b> *  <b>FROM </b> Customers  <b>WHERE </b> Name  <b>LIKE </b> 'A%'  <b>OR </b> Name  <b>LIKE </b> 'B%';
+
+</pre>
+</div>
+</body>
+</html>

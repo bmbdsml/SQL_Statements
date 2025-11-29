@@ -1,0 +1,173 @@
+<html>
+<body>
+<h1 style="color:#000080;"> Create Index (Examples)</h1>
+<div id="cons">
+<pre>
+	CREATE [UNIQUE] INDEX index_name
+
+	ON table_name (column_name1, column_name2, ...);
+
+<b style="color:#800080;"> Example 1:  Create a Non-Clustered Index </b>
+
+		A non-clustered index stores the index in a separate structure from the actual data, 
+		
+		which helps speed up queries that don't need to read all the rows of the table.
+
+ 
+		<b>CREATE INDEX </b>idx_ProductName <b>ON</b> Products (ProductName);
+ 
+		- This creates a non-clustered index named `idx_ProductName` on the `ProductName` column in the `Products` table.
+
+<b style="color:#800080;">Example 2:  Create a Clustered Index </b>
+
+		A  clustered index determines the physical order of the data in the table, meaning the rows are stored in the order 
+		
+		of the indexed column(s). 
+
+		A table can only have one clustered index because the data can only be sorted one way.
+
+ 
+	CREATE CLUSTERED INDEX idx_ProductID ON Products (ProductID);
+ 
+	- This creates a clustered index on the `ProductID` column in the `Products` table.
+
+	- Since `ProductID` is likely the primary key, this will be the default clustered index unless otherwise specified.
+
+
+<b style="color:#800080;"> Example 3:  Create a Unique Index </b>
+
+			A unique index ensures that all values in the indexed column(s) are unique.
+ 
+	CREATE UNIQUE INDEX idx_Products_SerialNumber ON Products (SerialNumber);
+	 
+		- This creates a unique index on the `SerialNumber` column in the `Products` table, 
+		
+		  ensuring no two products have the same serial number.
+
+<b style="color:#800080;"> Example 4:  Create a Composite (Multi-Column) Index </b>
+
+		A composite index is an index on multiple columns. 
+
+		It can improve query performance for queries that filter or sort by these columns.
+ 
+	CREATE INDEX idx_ProductName_Manufacturer ON Products (ProductName, Manufacturer);
+ 
+	- This creates a non-clustered index on both the `ProductName` and `Manufacturer` columns in the `Products` table.
+	
+	- The order of the columns in the index matters, as it can affect query performance.
+
+<b style="color:#800080;"> Example 5:  Create a Filtered Index </b>
+
+	A filtered index is an index that only includes rows that meet a certain condition. 
+
+	This is useful when only a subset of the data is frequently queried.
+ 
+	CREATE INDEX idx_Products_Available ON Products (ProductName) WHERE StockQuantity > 0;
+
+	- This creates an index on the `ProductName` column for rows where the `StockQuantity` is greater than zero.
+	
+	- This can improve performance for queries that only retrieve products that are in stock.
+
+<b style="color:#800080;"> Example 6:  Create a Full-Text Index </b>
+
+	A full-text index is used for full-text searching of textual data. 
+
+	It allows for fast searching of large amounts of text data, such as looking for specific words or phrases.
+ 
+	CREATE FULLTEXT INDEX ON Products (ProductDescription) KEY INDEX idx_ProductID; 
+
+		- This creates a full-text index on the `ProductDescription` column, using the `ProductID` 
+		
+		  index as the key index for the full-text search.
+ 
+
+<b style="color:#800080;"> Example 7:  Create a Spatial Index </b>
+
+		A spatial index is used for columns that store spatial data (e.g., geometry or geography data types).
+ 
+	CREATE SPATIAL INDEX idx_SpatialData ON Locations (LocationData);
+ 
+		- This creates a spatial index on the `LocationData` column in the `Locations` table, which is useful 
+		
+		  for improving queries that involve geographic or geometric data.
+
+<b style="color:#800080;"> Example 8:  Create an Index on a Computed Column </b>
+
+	You can create an index on a computed column, which is a column defined by a calculation from other columns.
+
+	CREATE INDEX idx_ComputedPrice ON Products (Price * Quantity);
+ 
+	- This creates an index on a computed column that calculates the price times quantity for the `Products` table.
+
+ <b style="color:#800080;">Example 9:  Create an Index with INCLUDE Clause </b>
+
+	The `INCLUDE` clause allows you to include additional columns in the index, which are not part of the key, 
+	
+	but can help optimize certain queries that require those columns.
+
+ 	CREATE NONCLUSTERED INDEX idx_Products_Name_Price ON Products (ProductName) INCLUDE (Price, StockQuantity);
+ 
+		- This creates a non-clustered index on the `ProductName` column, but also includes `Price` 
+		
+		  and `StockQuantity` in the index.
+		  
+		- The `INCLUDE` columns are not part of the key, but can help avoid the need for SQL Server to access the table data 
+		
+	 	  for queries that need those columns.
+
+<b style="color:#800080;"> Example 10:  Create a Filtered Index with Include Clause </b>
+
+		A filtered index  with an `INCLUDE` clause can be even more efficient by creating an index that is 
+		
+		focused on a subset of data and includes additional non-key columns for performance.
+ 
+	CREATE NONCLUSTERED INDEX idx_ActiveProducts ON Products (ProductName) WHERE IsActive = 1 INCLUDE (Price, StockQuantity);
+	
+
+		- This creates a non-clustered filtered index on the `ProductName` column, but only includes rows where `IsActive = 1`.
+		
+		- It also includes `Price` and `StockQuantity` for queries that need those columns, but without requiring a table lookup.
+
+<b style="color:#800080;"> Example 11:  Drop an Index </b>
+
+			If you want to remove an index, you can use the `DROP INDEX` statement:
+
+ 		DROP INDEX idx_ProductName ON Products;
+ 
+			- This removes the `idx_ProductName` index from the `Products` table.
+
+ <b style="color:#800080;"> < Non-clustered index > </b>
+
+	 Speeds up read operations by storing a separate index structure
+
+ <b style="color:#800080;"> < Clustered index > </b>
+
+	 Organizes the table data itself in a sorted order
+
+ <b style="color:#800080;"> < Unique index > </b>
+
+	 Ensures no duplicate values exist in the indexed columns
+
+ <b style="color:#800080;">< Composite index ></b>
+
+	 Indexes multiple columns together
+
+ <b style="color:#800080;">< Filtered index > </b>
+
+	An index on a subset of data based on a condition
+
+ <b style="color:#800080;">< Full-text index ></b>
+
+	 Enables full-text search capabilities
+
+ <b style="color:#800080;">< Spatial index ></b>
+
+	 Used for spatial data types (e.g., geographical data)
+
+ <b style="color:#800080;"> < Include clause ></b>
+
+	 Adds non-key columns to an index to improve query performance
+
+</pre>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<html>
+<body>
+<h1 style="color:#000080;"> Top Statement (Examples)</h1>
+<div id="cons">
+<pre>
+<b style="color:#800080;"> 1-> Select Top 5 rows from a table </b>
+
+	SELECT TOP 5 * FROM Employees;
+
+<b style="color:#800080;"> 2-> Select Top 10 rows ordered by a specific column </b>
+
+	SELECT TOP 10 * 
+	FROM Employees
+	ORDER BY Salary DESC;
+
+<b style="color:#800080;"> 3-> Select Top N percentage of rows </b>
+
+	SELECT TOP 20 PERCENT * 
+	FROM Employees 
+	ORDER BY Salary DESC;
+
+<b style="color:#800080;"> 4-> Select Top 3 rows with specific column filtering </b>
+
+	SELECT TOP 3 FirstName, LastName, Salary 
+	FROM Employees
+	WHERE Department = 'HR';
+
+<b style="color:#800080;"> 5-> Select Top 10 rows with specific sorting and filtering </b>
+
+	SELECT TOP 10 * 
+	FROM Employees
+	WHERE Age > 30
+	ORDER BY HireDate DESC;
+
+<b style="color:#800080;"> 6-> Select Top 5 rows from each group using ROW_NUMBER() </b>
+
+	WITH RankedEmployees AS (
+	    SELECT FirstName, LastName, Department, Salary,
+	           ROW_NUMBER() OVER (PARTITION BY Department ORDER BY Salary DESC) AS RowNum
+	    FROM Employees
+	)
+
+	SELECT FirstName, LastName, Department, Salary
+
+	FROM RankedEmployees
+
+	WHERE RowNum <= 5
+
+<b style="color:#800080;"> 7-> Select Top 10 rows from a large result set </b>
+
+	SELECT TOP 10 * 
+	FROM (SELECT * FROM Employees WHERE Salary > 50000) AS HighSalaryEmployees
+	ORDER BY HireDate DESC;
+
+<b style="color:#800080;"> 8-> Select the first 5 rows from a specific time range </b>
+
+	SELECT TOP 5 OrderID, OrderDate, CustomerID
+	FROM Orders
+	WHERE OrderDate BETWEEN '2024-01-01' AND '2024-12-31'
+	ORDER BY OrderDate;
+</pre>
+</div>
+</body>
+</html>
+
+
+

@@ -1,0 +1,95 @@
+<html>
+<body>
+<h1 style="color:#000080;"> Select Into (Examples)</h1>
+<div id="cons">
+<pre>
+
+<b style="color:#800080;"> 1-> Syntax </b>
+
+	SELECT column1, column2, ... INTO new_table_name FROM existing_table WHERE condition;
+
+<b style="color:#800080;"> 2-> Basic Example: Select All Data from One Table Into Another </b>
+
+	SELECT * INTO NewTable FROM ExistingTable;
+
+<b style="color:#800080;"> 3-> Select Specific Columns and Create a New Table </b>
+
+	SELECT ProductID, ProductName, Price INTO ProductsCopy FROM Products WHERE Price > 100;
+
+<b style="color:#800080;"> 4-> Select Distinct Records and Create a New Table </b>
+
+	SELECT DISTINCT CustomerID INTO UniqueCustomers FROM Orders;
+
+<b style="color:#800080;"> 5-> Select Data with Aggregation </b>
+
+	SELECT Department, COUNT(EmployeeID) AS EmployeeCount
+	
+	INTO DepartmentEmployeeCount
+	
+	FROM Employees
+	
+	GROUP BY Department;
+
+<b style="color:#800080;"> 6-> Create a Backup of a Table </b>
+
+	SELECT * INTO EmployeesBackup FROM Employees;
+
+<b style="color:#800080;"> 7-> Select Data from Multiple Tables Using JOIN </b>
+
+	SELECT E.EmployeeID, E.Name, D.DepartmentName
+
+	INTO EmployeeDepartmentInfo
+
+	FROM Employees E
+
+	INNER JOIN Departments D ON E.DepartmentID = D.DepartmentID;
+
+<b style="color:#800080;"> 8-> Select Data with a Complex Condition </b>
+
+	SELECT CustomerID, OrderID, OrderDate
+	
+	INTO HighValueOrders
+	
+	FROM Orders
+	
+	WHERE OrderAmount > 500 AND OrderDate >= '2025-01-01';
+
+<b style="color:#800080;"> 9-> Select Data from a Query with Subquery </b>
+
+	SELECT ProductID, ProductName, Price
+	
+	INTO ExpensiveProducts
+	
+	FROM Products
+	
+	WHERE Price > (SELECT AVG(Price) FROM Products);
+
+<b style="color:#800080;"> 10-> Using SELECT INTO with ORDER BY </b>
+
+	SELECT EmployeeID, Name, Salary
+	
+	INTO SortedEmployees
+	
+	FROM Employees
+	
+	ORDER BY Salary DESC;
+
+<b style="color:#800080;"> 11-> Select Data and Create Table with Modified Column Names </b>
+
+	SELECT EmployeeID AS EmpID, Name AS FullName, Department AS Dept
+	
+	INTO EmployeeDetails
+	
+	FROM Employees;
+
+</pre>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+

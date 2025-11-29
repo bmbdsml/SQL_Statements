@@ -1,0 +1,139 @@
+<html>
+<body>
+<h1 style="color:#000080;"> Create Table (Examples)</h1>
+<div id="cons">
+<pre>
+
+<b style="color:#800080;"> 1.  Basic Table with Different Data Types </b>
+ 
+<b>CREATE TABLE </b>Products (
+
+    ProductID INT PRIMARY KEY,
+    ProductName NVARCHAR(100),
+
+    Category NVARCHAR(50),
+
+    Price DECIMAL(10, 2),
+    QuantityInStock INT,
+
+    Discontinued BIT
+
+);
+ 
+<b style="color:#800080;"> 2.  Table with DateTime and Calculated Field </b>
+ 
+<b>CREATE TABLE </b>Orders (
+
+    OrderID INT PRIMARY KEY,
+    CustomerID INT,
+
+    OrderDate DATETIME,
+    ShippingDate DATETIME,
+
+    TotalAmount DECIMAL(18, 2),
+
+    Status NVARCHAR(20),
+
+    CONSTRAINT FK_Customer FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+);
+ 
+-  OrderID : Primary key for orders.
+-  CustomerID : Foreign key referring to the Customers table.
+-  OrderDate : Date the order was placed.
+-  ShippingDate : Date the order was shipped.
+-  TotalAmount : Total cost of the order.
+-  Status : Order status (e.g., "Shipped", "Pending").
+
+<b style="color:#800080;"> 3.  Table with CHECK Constraints </b>
+ 
+<b>CREATE TABLE </b>Employees (
+
+    EmployeeID INT PRIMARY KEY,
+
+    FirstName NVARCHAR(50),
+    LastName NVARCHAR(50),
+
+    Age INT CHECK (Age >= 18 AND Age <= 100), -- Age must be between 18 and 100
+
+    JobTitle NVARCHAR(100),
+
+    Salary DECIMAL(18, 2),
+
+    HireDate DATE
+);
+ 
+-  Age : Added a `CHECK` constraint to ensure the age is between 18 and 100.
+
+<b style="color:#800080;"> 4.  Table with Default Value </b>
+ 
+<b>CREATE TABLE </b>Payments (
+
+    PaymentID INT PRIMARY KEY,
+
+    OrderID INT,
+
+    PaymentDate DATETIME DEFAULT GETDATE(), -- Defaults to the current date and time
+
+    Amount DECIMAL(18, 2),
+
+    PaymentMethod NVARCHAR(50)
+
+);
+ 
+-  PaymentDate : Uses `DEFAULT GETDATE()` to automatically set the payment date to the current date and time when the record is inserted.
+
+<b style="color:#800080;"> 5.  Table with Identity Column (Auto-Increment) </b>
+ 
+<b>CREATE TABLE </b>Students (
+
+    StudentID INT IDENTITY(1,1) PRIMARY KEY, -- Auto-increment starting from 1
+
+    FirstName NVARCHAR(50),
+    LastName NVARCHAR(50),
+
+    DateOfBirth DATE,
+
+    EnrollmentDate DATE
+
+);
+ 
+-  StudentID : Uses the `IDENTITY` property to automatically generate a unique ID for each row, starting from 1 and incrementing by 1.
+
+<b style="color:#800080;"> 6.  Table with Multiple Foreign Keys </b>
+ 
+<b>CREATE TABLE </b>Assignments (
+
+    AssignmentID INT PRIMARY KEY,
+
+    Title NVARCHAR(100),
+    DueDate DATE,
+    CourseID INT,
+	
+    InstructorID INT,
+    
+	CONSTRAINT FK_Course FOREIGN KEY (CourseID) REFERENCES Courses(CourseID),
+    
+	CONSTRAINT FK_Instructor FOREIGN KEY (InstructorID) REFERENCES Instructors(InstructorID)
+);
+ 
+-  CourseID  and  InstructorID : Foreign keys that reference the `Courses` and `Instructors` tables, respectively.
+
+<b style="color:#800080;"> 7.  Table with Unique Constraints </b>
+ 
+<b>CREATE TABLE </b>Users (
+
+    UserID INT PRIMARY KEY,
+    Username NVARCHAR(50) UNIQUE, -- Ensures usernames are unique
+
+    Email NVARCHAR(100) UNIQUE,   -- Ensures emails are unique
+
+    PasswordHash NVARCHAR(255),
+
+    CreatedAt DATETIME DEFAULT GETDATE()
+);
+ 
+</pre>
+</body>
+</html>
+
+

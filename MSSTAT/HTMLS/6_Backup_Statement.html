@@ -1,0 +1,78 @@
+<html>
+<body>
+<h1 style="color:#000080;"> Backup Database (Examples)</h1>
+<div id="cons">
+<pre>
+
+<b style="color:#800080;"> 1. BACKUP DATABASE YourDatabaseName </b>
+
+		<b> TO DISK </b> = 'C:\Backups\YourDatabaseName_Backup.bak'
+
+		<b> WITH FORMAT,</b>
+
+		    <b> MEDIANAME </b> = 'YourDatabaseNameBackup',
+
+		    <b> NAME </b> = 'Full Backup of YourDatabaseName';
+
+- [<b> BACKUP DATABASE </b> YourDatabaseName] : 
+
+		This specifies the name of the database you want to back up (`YourDatabaseName` in this example).
+
+- [<b> TO DISK </b>= 'C:\Backups\YourDatabaseName_Backup.bak'] : Specifies the location and name of the backup file. 
+
+		In this case, the backup will be stored in the `C:\Backups\` directory with the file name `YourDatabaseName_Backup.bak`.
+
+- [<b> WITH FORMAT </b>] : 
+
+		Ensures that the backup file is initialized, effectively erasing any existing backup sets on the destination file
+		before writing the new backup.
+
+- [<b> MEDIANAME </b>] :
+
+		 Specifies a name for the backup media set, which is useful for managing multiple backup files.
+
+- [<b> NAME </b>] : 
+
+		A description for the backup that you can identify later (e.g., `Full Backup of YourDatabaseName`).
+
+<b style="color:#800080;">  2. Backup with Compression (SQL Server 2008 and later) </b>
+
+		If you're using SQL Server 2008 or later and you have the option for backup compression, 
+
+		you can use the `COMPRESSION` option to reduce the size of the backup file:
+
+	<b> BACKUP DATABASE </b> YourDatabaseName 
+
+	<b>  TO DISK </b> = 'C:\Backups\YourDatabaseName_Backup.bak'
+
+	<b>  WITH COMPRESSION, FORMAT, </b>
+
+	    <b> MEDIANAME </b> = 'YourDatabaseNameBackup',
+
+	    <b> NAME </b> = 'Compressed Full Backup of YourDatabaseName';
+
+<b style="color:#800080;">  3. Backup Only Specific Filegroup </b>
+
+	If you have a database with multiple filegroups, you can back up a specific filegroup:
+
+	<b>  BACKUP DATABASE </b> YourDatabaseName
+
+	<b>  FILEGROUP </b> = 'Primary'
+
+	<b>  TO DISK </b> = 'C:\Backups\PrimaryFilegroup_Backup.bak'
+
+	<b>  WITH NAME </b> = 'Backup of Primary Filegroup';
+
+<b style="color:#800080;">  4. Backup Transaction Log </b>
+
+	To back up the transaction log (useful for point-in-time recovery), you can use the following statement:
+
+	<b> BACKUP LOG </b> YourDatabaseName
+
+	<b>  TO DISK </b> = 'C:\Backups\YourDatabaseName_Log_Backup.trn'
+
+	<b>  WITH NAME </b> = 'Transaction Log Backup';
+</pre>
+</div>
+</body>
+</html>

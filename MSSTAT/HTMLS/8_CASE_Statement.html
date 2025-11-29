@@ -1,0 +1,203 @@
+<html>
+<body>
+<h1 style="color:#000080;"> Case Statement (Examples)</h1>
+<div id="case">
+<pre>
+
+<b style="color:#800080;"> 1. CASE | Simple Statement Example: </b>
+
+	<b> SELECT </b> ProductID, ProductName,CASE CategoryID 
+
+	      <b> WHEN</b> 1 <b>THEN</b> 'Electronics'
+
+       	      <b>WHEN</b> 2 <b>THEN</b> 'Clothing'
+
+ 	      <b>WHEN</b> 3 <b>THEN</b> 'Home Goods'
+
+           <b>ELSE</b> 'Other'
+
+       <b>END</b> AS CategoryName FROM Products;
+
+
+ <b style="color:#800080;"> 2. CASE | Searched Statement Example: </b>
+
+	<b> SELECT </b> EmployeeID, Name, Salary,
+
+       <b> CASE </b>
+
+           <b> WHEN</b> Salary < 30000 <b>THEN</b> 'Low Salary'
+
+           <b>WHEN</b> Salary BETWEEN 30000 <b>AND</b> 60000 THEN 'Medium Salary'
+
+           <b>WHEN</b> Salary > 60000 <b>THEN</b> 'High Salary'
+
+           <b>ELSE</b> 'Unknown Salary'
+
+       <b>END</b> AS SalaryCategory <b>FROM</b> Employees;
+
+ <b style="color:#800080;"> 3. Using CASE | WHERE Clause Example: </b>
+
+		You can also use `CASE` within the `WHERE` clause to filter rows based on conditions.
+
+	<b> SELECT </b> ProductID, ProductName, Price FROM Products WHERE	
+
+	    <b> CASE</b>
+        	<b>WHEN</b> Price < 50 <b>THEN</b> 1
+	        <b>WHEN</b> Price <b>BETWEEN</b> 50 <b>AND</b> 100 <b>THEN</b> 2
+	        <b>ELSE</b> 3
+	    <b>END</b> = 1;
+
+ <b style="color:#800080;"> 4. CASE | Aggregate Functions Example: </b>
+	 
+	<b> SELECT </b> CustomerID,
+
+	       <b>COUNT(CASE WHEN </b>TotalAmount < 100 <b>THEN</b> 1 END) AS LowValueOrders,
+
+	       <b>COUNT(CASE WHEN </b>TotalAmount <b>BETWEEN</b> 100 <b>AND</b> 500 <b>THEN</b> 1 <b>END</b>) AS MediumValueOrders,
+
+	       <b>COUNT(CASE WHEN </b>TotalAmount > 500 <b>THEN</b> 1 <b>END</b>) AS HighValueOrders
+
+	       <b>FROM</b> Orders <b>GROUP BY</b>CustomerID;
+
+
+ <b style="color:#800080;"> 5. CASE | ORDER BY Clause Example: </b>
+
+	You can also use `CASE` in the `ORDER BY` clause to sort the results based on a condition:
+ 
+	<b> SELECT </b> ProductID, ProductName, Price
+
+	<b>FROM</b> Products
+
+	<b>ORDER BY</b>
+
+	    <b>CASE</b>
+	        <b>WHEN</b> Price < 20 <b>THEN</b> 1
+	        <b>WHEN</b> Price <b>BETWEEN</b> 20 <b>AND</b> 100 <b>THEN</b> 2
+	        <b>ELSE</b> 3
+	    <b>END</b>;
+
+ <b style="color:#800080;"> 6.  CASE | UPDATE Statement Example: </b>
+
+	<b> UPDATE </b> Orders
+
+	<b> SET </b> OrderStatus = 
+
+	    <b> CASE </b>
+
+	        <b>WHEN</b> TotalAmount < 100 <b>THEN</b> 'Pending'
+
+	        <b>WHEN</b> TotalAmount <b>BETWEEN</b> 100 <b>AND</b> 500 <b>THEN</b> 'Processed'
+
+	        <b>ELSE</b> 'Shipped'
+
+	    <b>END</b>
+
+	<b>WHERE</b> OrderID IN (1, 2, 3, 4);
+
+<b style="color:#800080;"> 7. Case | Group By Clause </b>
+
+	<b> SELECT </b> OrderStatus,
+
+	       <b>COUNT( CASE </b> WHEN OrderStatus = 'Shipped' <b>THEN</b> 1 END) AS ShippedCount,
+
+	       <b>COUNT( CASE </b> WHEN OrderStatus = 'Pending' <b>THEN</b> 1 END) AS PendingCount
+
+	<b>FROM</b> Orders <b>GROUP BY</b> OrderStatus;
+
+<b style="color:#800080;"> 8. Case | Update </b>
+
+	<b> UPDATE </b> Products
+
+	<b> SET </b> StockStatus = 
+	    <b> CASE </b> 
+
+        <b> WHEN </b> StockQuantity = 0 <b>THEN</b> 'Out of Stock'
+
+        <b> WHEN </b> StockQuantity <b>BETWEEN</b> 1 <b>AND</b> 10 <b>THEN</b> 'Low Stock'
+
+        <b> WHEN </b> StockQuantity > 10 <b>THEN</b> 'In Stock'
+
+        <b>ELSE</b> 'Unknown'
+
+    <b> END </b>
+
+	WHERE ProductID = 101;
+
+<b style="color:#800080;"> 9. Case | Order by example </b>
+
+	<b> SELECT </b> ProductID, ProductName, Price, IsOnSale
+
+	<b> FROM </b> Products
+
+	<b> ORDER BY </b>
+
+	    <b> CASE </b> 
+	        <b> WHEN </b> IsOnSale = 1 <b>THEN</b> 1
+	        <b> WHEN </b> Price < 50 <b>THEN</b> 2
+	        <b> ELSE </b> 3
+	    <b> END </b>;
+		
+<b style="color:#800080;"> 10. Case | String Example </b>
+
+	<b> SELECT </b> OrderID, TotalAmount,
+
+	       <b> CASE </b> 
+
+	           <b> WHEN </b> TotalAmount IS NULL THEN 'Amount Not Available'
+
+	           <b> ELSE CAST </b>(TotalAmount AS VARCHAR)
+
+	       <b> END </b> AS AmountDescription
+
+	<b> FROM </b> Orders;
+
+<b style="color:#800080;"> 11. Case | Multiple with Alias </b>
+
+	<b> SELECT </b>
+
+	    <b> CASE </b>
+
+	        <b> WHEN </b> Price < 50 THEN 'Low Price'
+
+	        <b> WHEN </b> Price BETWEEN 50 AND 150 THEN 'Medium Price'
+
+	        <b> ELSE </b> 'High Price'
+
+	    <b> END </b> AS PriceCategory,
+
+	    <b> COUNT </b>(*) AS NumberOfProducts
+
+	<b> FROM </b> Products
+
+	<b> GROUP BY </b>
+
+	    <b> CASE </b>
+
+	        <b> WHEN </b> Price < 50 <b> THEN </b> 'Low Price'
+
+	        <b> WHEN </b> Price <b> BETWEEN </b> 50 <b> AND </b> 150 <b> THEN </b> 'Medium Price'
+
+	        <b> ELSE </b> 'High Price'
+
+	    <b> END </b>;
+
+
+<b style="color:#800080;"> 12. Case | Date Column </b>
+
+<b> SELECT </b> OrderID, OrderDate,
+
+       <b> CASE </b>
+
+           <b> WHEN </b> OrderDate >= GETDATE() - 30 <b> THEN </b> 'Recent'
+
+           <b> WHEN </b>OrderDate <b>BETWEEN</b> GETDATE() - 60 <b>AND</b> GETDATE() - 31 <b>THEN</b> 'In Progress'
+
+           <b>ELSE</b> 'Old'
+
+       <b> END </b> AS OrderCategory
+
+<b>FROM</b> Orders;
+
+</pre>
+</body>
+</html>

@@ -1,0 +1,495 @@
+<html>
+<body>
+<h1 style="color:#000080;"> Row Number() Statement (Examples)</h1>
+<div id="cons">
+<pre>
+
+<b style="color:#800080;">  1-> Basic usage of ROW_NUMBER() </b>
+
+    SELECT 
+
+    <b> ROW_NUMBER() OVER </b>(ORDER BY LastName) AS RowNum, 
+    
+	FirstName, 
+    
+	LastName
+    
+	FROM Employees;
+
+<b style="color:#800080;"> 2-> Using ROW_NUMBER() with partitioning </b>
+
+	SELECT 
+	
+	    <b> ROW_NUMBER() OVER </b>(PARTITION BY Department ORDER BY LastName) AS RowNum, 
+
+	    FirstName,LastName,Department
+
+	FROM Employees;
+
+<b style="color:#800080;"> 3-> Filtering with ROW_NUMBER() in a subquery </b>
+
+	WITH RowCTE AS 
+	
+	(
+	
+	    SELECT 
+		
+	        <b>ROW_NUMBER() OVER </b>(ORDER BY LastName) AS RowNum, 
+			
+	        FirstName,LastName
+			
+		FROM Employees
+	)
+	
+	SELECT * 
+	
+	FROM RowCTE 
+	
+	WHERE RowNum <= 10;
+
+<b style="color:#800080;"> 4-> Retrieve the Nth row of a table </b>
+
+	WITH RowCTE AS (
+
+	    SELECT 
+		
+	        <b>ROW_NUMBER() OVER </b>(ORDER BY LastName) AS RowNum,
+			
+	        FirstName,LastName
+			
+	    FROM Employees
+	)
+
+	SELECT * 
+	
+	FROM RowCTE
+	
+	WHERE RowNum = 2;
+
+<b style="color:#800080;">  5-> Getting top N rows in each group </b>
+
+	WITH RowCTE AS (
+	
+	    SELECT 
+		
+	        <b>ROW_NUMBER() OVER </b>(PARTITION BY Department ORDER BY LastName) AS RowNum,
+
+	        FirstName,LastName,Department
+			
+	    FROM Employees
+	)
+
+	SELECT * 
+
+	FROM RowCTE 
+
+	WHERE RowNum <= 3;
+
+<b style="color:#800080;"> 6-> Assigning row numbers in reverse order </b>
+
+	WITH RowCTE AS (
+	
+	    SELECT 
+
+	        <b>ROW_NUMBER() OVER </b>(ORDER BY LastName DESC) AS RowNum, 
+
+	        FirstName, 
+
+	        LastName
+
+	    FROM Employees
+
+	)
+
+	SELECT * 
+
+	FROM RowCTE;
+
+<b style="color:#800080;"> 7-> Skipping row numbers (use ROW_NUMBER() with an offset) </b>
+
+	WITH RowCTE AS 
+	(
+	
+	SELECT 
+	
+        <b>ROW_NUMBER() OVER </b>(ORDER BY LastName) AS RowNum,
+		
+        FirstName,LastName 
+		
+		FROM Employees
+	)
+
+	SELECT * 
+	
+	FROM RowCTE 
+	
+	WHERE RowNum BETWEEN 11 AND 20;
+
+<b style="color:#800080;"> 8-> Row number in combination with RANK() and DENSE_RANK() </b>
+
+	WITH RowCTE AS 
+	(
+	
+	    SELECT 
+		
+	        <b>ROW_NUMBER() OVER </b>(ORDER BY Salary DESC) AS RowNum,
+			
+	        RANK() OVER (ORDER BY Salary DESC) AS Rank,
+
+	        DENSE_RANK() OVER (ORDER BY Salary DESC) AS DenseRank,
+
+	        FirstName,LastName,Salary
+
+	    FROM Employees
+	)
+
+	SELECT * 
+	
+	FROM RowCTE;
+
+<b style="color:#800080;"> 9-> Using ROW_NUMBER() to filter duplicate rows </b>
+
+	WITH RowCTE AS 
+	
+	(
+	    SELECT 
+		
+	        <b>ROW_NUMBER() OVER </b>(PARTITION BY FirstName, LastName ORDER BY FirstName) AS RowNum,
+			
+	        FirstName,LastName
+			
+	    FROM Employees
+	)
+
+	SELECT FirstName, LastName
+
+	FROM RowCTE
+
+	WHERE RowNum = 1;
+
+<b style="color:#800080;"> 10-> Calculating running totals or sequential calculations </b>
+
+	WITH RowCTE AS 
+	(
+	    SELECT 
+		
+	        <b>ROW_NUMBER() OVER </b>(ORDER BY SaleDate) AS RowNum,
+			
+	        SaleDate,SaleAmount
+			
+	    FROM Sales
+	)
+
+	SELECT RowNum,SaleDate,SaleAmount,
+	
+	SUM(SaleAmount) 
+	
+	OVER (ORDER BY RowNum) AS RunningTotal
+	
+	FROM RowCTE;
+	
+	<b style="color:#800080;"> <h1>  ||  Advanced ||</h1> </b>
+
+<b style="color:#800080;"> 11-> Pagination of Results (Simulating LIMIT/OFFSET) </b>
+
+	<b style="color:#FFA500;"> Problem : </b>Pagination for large result sets.
+
+	<b style="color:#0000FF;">Solution : </b>ROW_NUMBER() helps create an easy way to simulate pagination, selecting a specific range of rows.
+
+	WITH PaginatedResults AS 
+	(
+	
+	    SELECT 
+
+	        <b>ROW_NUMBER() OVER </b>(ORDER BY ProductName) AS RowNum,
+
+	        ProductName,Price
+			
+	    FROM Products
+	)
+
+	SELECT *
+	
+	FROM PaginatedResults 
+	
+	WHERE RowNum BETWEEN 6 AND 15;
+
+<b style="color:#800080;"> 12-> Identify Most Recent Records Per Group </b>
+
+	<b style="color:#FFA500;"> Problem : </b>You want to get the latest order for each customer.
+
+	<b style="color:#0000FF;">Solution : </b>ROW_NUMBER() allows partitioning the data by CustomerID and ordering it by OrderDate 
+	
+               to find the most recent order.
+
+	WITH RecentOrders AS (
+	
+	    SELECT 
+		
+	        <b>ROW_NUMBER() OVER </b>(PARTITION BY CustomerID ORDER BY OrderDate DESC) AS RowNum,
+	        
+			CustomerID,OrderID,OrderDate
+
+	    FROM Orders
+
+	)
+
+	SELECT CustomerID, OrderID, OrderDate
+	
+	FROM RecentOrders
+	
+	WHERE RowNum = 1;
+
+<b style="color:#800080;"> 13-> Duplicates Removal (Keeping the First Occurrence) </b>
+
+	<b style="color:#FFA500;"> Problem : </b>There are duplicate entries (same first name and last name) 
+	
+		      and you want to keep only the first one.
+		  
+	<b style="color:#0000FF;">Solution : </b>ROW_NUMBER() is used to assign a number to each duplicate, 
+	
+		  and you keep only the first occurrence by filtering where RowNum = 1.
+
+	WITH DedupedResults AS 
+	(
+	    SELECT 
+		
+	        <b>ROW_NUMBER() OVER </b>(PARTITION BY FirstName, LastName ORDER BY LastName) AS RowNum,
+			
+	        FirstName,LastName
+			
+	    FROM Customers
+	)
+
+	SELECT FirstName, LastName
+	
+	FROM DedupedResults
+	
+	WHERE RowNum = 1;
+
+<b style="color:#800080;">  14-> Top N by Category (Within Each Group) </b>
+
+						If you want to get the top 3 products by price in each category:
+
+	<b style="color:#FFA500;"> Problem : </b>You want to retrieve the top N products in each category based on their price.
+
+	<b style="color:#0000FF;">Solution : </b>ROW_NUMBER() is used in conjunction with PARTITION BY 
+	
+		       Category to assign row numbers to products within each category.
+
+	WITH TopProducts AS 
+	(
+	    SELECT 
+				
+	        <b>ROW_NUMBER() OVER </b>(PARTITION BY Category ORDER BY Price DESC) AS RowNum,
+			
+	        ProductName, 
+			
+	        Category, 
+			
+	        Price
+	    FROM Products
+	)
+
+	SELECT ProductName, Category, Price
+	
+	FROM TopProducts
+	
+	WHERE RowNum <= 3;
+
+<b style="color:#800080;"> 15-> Detecting Gaps in Sequences </b>
+
+				If you have a list of ordered values, and you want to detect gaps in the sequence:
+
+	<b style="color:#FFA500;"> Problem : </b>You need to detect missing OrderIDs in a sequential list.
+
+	<b style="color:#0000FF;">Solution : </b>ROW_NUMBER() helps identify gaps in the sequence by 
+	
+		       comparing the expected and actual OrderID.
+
+	WITH SequenceCheck AS 
+	
+	(
+	    SELECT 
+		
+	        <b>ROW_NUMBER() OVER </b>(ORDER BY OrderID) AS RowNum,OrderID
+			
+	    FROM Orders
+		
+	)
+	
+	SELECT 
+		
+		(ROWNum + 1) AS ExpectedOrderID, 
+		
+	    OrderID + 1 AS NextOrderID
+		
+	FROM SequenceCheck
+	
+	WHERE RowNum + 1 != OrderID;
+
+<b style="color:#800080;"> 16-> Ranking Products Based on Multiple Criteria </b>
+
+   			   Sometimes you need to rank products by multiple criteria, for example, by Sales and CustomerRating:
+
+	<b style="color:#FFA500;"> Problem : </b>Rank products based on sales and customer rating.
+
+	<b style="color:#0000FF;">Solution : </b>ROW_NUMBER() can rank products first by Sales, and 
+	
+		       then by CustomerRating in case of ties.
+
+	WITH ProductRankings AS 
+	
+	(
+	    SELECT 
+		
+	        <b>ROW_NUMBER() OVER </b>(ORDER BY Sales DESC, CustomerRating DESC) AS RowNum,
+			
+	        ProductName,Sales,CustomerRating
+
+	    FROM Products
+	)
+
+	SELECT ProductName, Sales, CustomerRating
+	
+	FROM ProductRankings
+	
+	WHERE RowNum <= 5;
+
+<b style="color:#800080;">  17-> Finding and Removing Consecutive Duplicates </b>
+
+	<b style="color:#FFA500;"> Problem : </b>You want to eliminate consecutive duplicates in the result.
+
+	<b style="color:#0000FF;">Solution : </b>ROW_NUMBER() helps you compare each row to the previous 
+	
+		       one to determine if it’s a duplicate.
+
+	WITH ConsecutiveDuplicates AS (
+	
+	    SELECT 
+		
+	        <b>ROW_NUMBER() OVER </b>(ORDER BY OrderDate) AS RowNum, 
+			
+	        ProductName, OrderDate
+			
+	    FROM Orders
+	)
+
+	SELECT ProductName, OrderDate
+	
+	FROM ConsecutiveDuplicates
+	
+	WHERE RowNum = 1 
+	
+	OR ProductName != (SELECT ProductName FROM ConsecutiveDuplicates WHERE RowNum = ConsecutiveDuplicates.RowNum - 1);
+
+<b style="color:#800080;"> 18-> Sorting Results Within Each Group </b>
+
+						if you have data for employees and want to assign a rank to each employee within each 
+						department based on their salary:
+
+	<b style="color:#FFA500;"> Problem : </b>You want to rank employees by salary within their department.
+	
+	<b style="color:#0000FF;">Solution : </b>ROW_NUMBER() allows you to partition the data by Department 
+	
+		       and order by Salary within each partition.
+
+	WITH EmployeeRanks AS 
+	
+	(
+	    SELECT 
+		
+	        <b>ROW_NUMBER() OVER </b>(PARTITION BY Department ORDER BY Salary DESC) AS Rank,
+			
+	        EmployeeName,Department,Salary
+			
+	    FROM Employees
+
+	)
+
+	SELECT EmployeeName, Department, Salary, Rank
+	
+	FROM EmployeeRanks
+	
+	wWHERE Rank <= 5;
+
+<b style="color:#800080;"> 19-> Tracking Sequential Actions (e.g., Step Numbers in Workflow) </b>
+
+			You may have a sequence of events in a workflow and want to track the order of actions taken by users.
+
+			<b style="color:#FFA500;"> Problem : </b>You want to track the sequential steps of actions for each user.
+			
+			<b style="color:#0000FF;">Solution : </b>ROW_NUMBER() allows you to assign a step number to each action in a user’s workflow.
+
+	WITH ActionSteps AS 
+	
+	(
+	    SELECT 
+		
+	        <b>ROW_NUMBER() OVER </b>(PARTITION BY UserID ORDER BY ActionDate) AS StepNumber,
+			
+	        UserID,ActionType,ActionDate
+			
+	    FROM UserActions
+	)
+
+	SELECT UserID, ActionType, ActionDate, StepNumber
+	
+	FROM ActionSteps;
+
+<b style="color:#800080;">  20-> Handling Sequential Identifiers with Gaps </b>
+
+					If you want to regenerate sequential identifiers that may have gaps, you can use ROW_NUMBER() to create a 
+					new sequential identifier for rows:
+
+		<b style="color:#FFA500;"> Problem : </b>You have sequential identifiers (e.g., CustomerID) with gaps, and you need to regenerate them.
+		
+		<b style="color:#0000FF;">Solution : </b>ROW_NUMBER() will generate a new set of consecutive IDs without gaps.
+
+	WITH Renumbered AS (
+	
+	    SELECT 
+		
+	        <b>ROW_NUMBER() OVER </b>(ORDER BY LastName) AS NewID, 
+			
+	        FirstName, LastName
+			
+	    FROM Customers
+	)
+
+	SELECT NewID, FirstName, LastName
+	FROM Renumbered;
+
+<b style="color:#800080;"> 21-> Running a Dynamic Windowed Calculation </b>
+
+	You can also use ROW_NUMBER() for a running total or an average over a window of rows. 
+
+	Here’s an example for calculating running averages:
+
+	<b style="color:#FFA500;"> Problem  : </b>You need to calculate the running average of orders over a 3-day window.
+
+	<b style="color:#0000FF;">Solution : </b>ROW_NUMBER() helps to define the order, and a window function computes the running average over a dynamic range of rows.
+
+
+	WITH RunningAvg AS 
+	(
+	
+	    SELECT 
+		
+        <b>ROW_NUMBER() OVER </b>(ORDER BY OrderDate) AS RowNum, 
+		
+        OrderDate,OrderAmount,
+		
+        AVG(OrderAmount) OVER (ORDER BY OrderDate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW) AS RunningAvg
+		
+        FROM Orders
+    )
+	
+	SELECT OrderDate, OrderAmount, RunningAvg
+	
+	FROM RunningAvg;
+
+</pre>
+</div>
+</body>
+</html>

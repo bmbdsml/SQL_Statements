@@ -1,0 +1,44 @@
+<html>
+<body>
+<h1 style="color:#000080;"> Desc Statement (Examples)</h1>
+<div id="cons">
+<pre>
+<b style="color:#800080;">1 < DESC | Single Column ></b>
+
+	<b>SELECT </b>EmployeeID, FirstName, LastName, Salary <b>FROM </b>Employees 
+
+	<b>ORDER BY </b>Salary <b>DESC;</b>
+
+<b style="color:#800080;">2 < DESC | Multiple Column ></b>
+
+	<b>SELECT </b>EmployeeID, FirstName, LastName, Salary <b>FROM </b>Employees 
+	
+	<b>ORDER BY </b>Salary <b>DESC</b>, LastName <b>ASC</b>;
+
+<b style="color:#800080;">3 < DESC | Date Column ></b>
+
+	<b>SELECT </b>OrderID, CustomerID, OrderDate <b>FROM </b>Orders 
+	
+	<b>ORDER BY </b>OrderDate <b>DESC</b>;
+
+<b style="color:#800080;">4 < DESC | Numeric Column ></b>
+
+	<b>SELECT TOP 5 </b>EmployeeID, FirstName, LastName, Salary <b>FROM </b>Employees 
+	
+	<b>ORDER BY </b>Salary <b>DESC;</b>
+
+<b style="color:#800080;">5 < DESC | in Group By Clause ></b>
+
+	<b>SELECT </b>EmployeeID, SUM(SaleAmount) AS TotalSales <b>FROM </b>Sales <b>GROUP BY </b>EmployeeID <b>HAVING </b>SUM(SaleAmount) > 1000
+
+	ORDER BY TotalSales DESC;
+
+<b style="color:#800080;">6 < DESC | Multiple Column ></b>
+
+	<b>SELECT <b>EmployeeID, DepartmentID, FirstName, LastName, Salary <b>FROM </b>Employees 
+	
+	<b>ORDER BY </b>DepartmentID <b>DESC</b>, Salary <b>DESC;</b>
+
+</pre>
+</body>
+</html>

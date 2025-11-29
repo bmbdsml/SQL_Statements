@@ -1,0 +1,31 @@
+<html>
+<body>
+<h1 style="color:#000080;"> Drop View Statement (Examples)</h1>
+<div id="cons">
+<pre>
+
+<b style="color:#800080;">1 < Drop View | If View Exists > </b>
+
+	<b> DROP VIEW IF EXISTS </b>dbo.MyView;
+
+<b style="color:#800080;">2 < Drop View | Check View Object > </b>
+
+	<b>IF OBJECT_ID</b>('dbo.ProductDetails', 'V') <b>IS NOT NULL</b>
+
+	    <b>DROP VIEW </b>dbo.ProductDetails;
+
+<b style="color:#800080;">3 < Drop View | Against Given Schema > </b>
+
+	<b>DROP VIEW IF EXISTS </b>sales.SalesReport;
+
+<b style="color:#800080;"> 4 < Drop View | If View Exists Drop / Create > </b>
+
+	-- Drop old view before creating a new one
+
+		<b>DROP VIEW IF EXISTS </b>dbo.OrdersSummary;
+
+		-- Create a new view
+
+		<b>CREATE VIEW </b>dbo.OrdersSummary AS
+		
+			<b>SELECT </b>OrderID, OrderDate, TotalAmount <b>FROM </b>Orders <b>WHERE </b>Status = 'Completed';

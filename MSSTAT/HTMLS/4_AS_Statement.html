@@ -1,0 +1,30 @@
+<html>
+<body>
+<h1 style="color:#000080;"> AS Statement (Examples)</h1>
+<div id="as">
+<pre>
+
+<b style="color:#800080;"> 1.  Alias for Table-> Columns </b> 	
+
+	<b> SELECT </b> FirstName AS 'First Name', LastName AS 'Last Name', Department <b> AS </b> 'Department' <b> FROM </b> Employees;
+
+<b style="color:#800080;"> 2.  Alias for Tables </b>
+	<p style="color:#0000FF;"> You can also give a table a shorter alias in queries to make referencing it easier: </p>
+	<b> SELECT </b> E.FirstName, E.LastName, D.DepartmentName <b> FROM </b> Employees AS E
+	<b> INNER JOIN </b> Departments <b> AS </b> D ON E.DepartmentID = D.DepartmentID;
+	
+<b style="color:#800080;"> 3.  Alias for Calculated Columns </b>
+
+	<p style="color:#0000FF;">  You can alias the result of an expression or calculation: </p>
+
+	<b> SELECT </b> FirstName, LastName, Salary, Salary * 0.1 <b> AS <b> 'Bonus' <b> FROM </b> Employees;
+
+<b style="color:#800080;"> 4.  Alias for Aggregate Functions </b>
+	
+	<b> SELECT </b> Department, AVG(Salary) <b> AS </b> 'Average Salary' FROM Employees <b> GROUP BY </b> Department;
+
+</pre>
+</div>
+</body>
+</html>
+

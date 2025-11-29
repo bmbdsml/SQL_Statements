@@ -1,0 +1,77 @@
+<html>
+<body>
+<h1 style="color:#000080;"> Create Procedure (Examples)</h1>
+<div id="cons">
+<pre>
+
+<b style="color:#800080;">1 < GetEmployeeDetails > </b>
+
+    <b>CREATE PROCEDURE </b>GetEmployeeDetails
+
+        @EmployeeID INT
+
+	AS
+
+	<b>BEGIN</b>
+	    -- Select employee details from the Employee table
+     <b>SELECT</b> 
+
+        EmployeeID,FirstName,LastName,JobTitle,HireDate FROM Employees WHERE EmployeeID = @EmployeeID;
+
+     <b>END;</b>
+
+     <b>EXEC </b>GetEmployeeDetails @EmployeeID = 5;
+
+<b style="color:#800080;">2 < InsertEmployee > </b>
+
+	<b>CREATE PROCEDURE </b>InsertEmployee
+
+	    @FirstName NVARCHAR(50),@LastName NVARCHAR(50),
+	    @JobTitle NVARCHAR(50),@HireDate DATE
+
+	AS
+
+	<b>BEGIN</b>
+
+			-- Insert a new record into the Employees table
+
+	    <b>INSERT INTO </b>Employees (FirstName, LastName, JobTitle, HireDate)
+
+	    <b>VALUES </b>(@FirstName, @LastName, @JobTitle, @HireDate);
+	<b>END;</b>
+
+	<b>EXEC </b>InsertEmployee @FirstName = 'John', @LastName = 'Doe',
+	                    @JobTitle = 'Software Developer',@HireDate = '2025-02-06';
+
+<b style="color:#800080;"> 3 < UpdateEmployee > </b>
+
+	<b>CREATE PROCEDURE </b>UpdateEmployee
+
+	    @EmployeeID INT,
+	    @FirstName NVARCHAR(50),
+
+	    @LastName NVARCHAR(50),
+	    @JobTitle NVARCHAR(50),
+
+	    @HireDate DATE
+
+	AS
+
+	<b>BEGIN</b>
+
+				-- Update an existing employee's details
+
+	    <b>UPDATE </b>Employees
+
+	<b>SET </b>
+        	FirstName = @FirstName,
+	        LastName = @LastName,
+	        JobTitle = @JobTitle,
+	        HireDate = @HireDate
+
+	    <b>WHERE </b>EmployeeID = @EmployeeID;
+
+	<b>END;</b>
+</pre>
+</body>
+</html>

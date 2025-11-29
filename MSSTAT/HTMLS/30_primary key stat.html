@@ -1,0 +1,57 @@
+
+<html>
+<body>
+<h1 style="color:#000080;"> Primary Key (Examples)</h1>
+<div id="cons">
+<pre>
+
+<b style="color:#800080;">  1. Creating a table with a primary key on a single column </b>
+
+	<b>CREATE TABLE </b>Employees (
+
+	    EmployeeID INT PRIMARY KEY,
+
+	    FirstName NVARCHAR(50),
+	    LastName NVARCHAR(50),
+	    DateOfBirth DATE
+	);
+
+<b style="color:#800080;"> 2. Creating a table with a composite primary key (multiple columns) </b>
+
+	<b>CREATE TABLE </b>Orders (
+	    OrderID INT,
+	    ProductID INT,
+	    OrderDate DATETIME,
+
+	    PRIMARY KEY (OrderID, ProductID)
+
+	);
+
+<b style="color:#800080;"> 3. Creating a table with a primary key and a foreign key relationship </b>
+
+	<b>CREATE TABLE </b>Products (
+
+	    ProductID INT PRIMARY KEY,
+
+	    ProductName NVARCHAR(100),
+	    CategoryID INT,
+
+	    CONSTRAINT FK_Category FOREIGN KEY (CategoryID) REFERENCES Categories(CategoryID)
+
+	);
+
+<b style="color:#800080;"> 4. Dropping a primary key constraint </b>
+
+	<b>CREATE TABLE </b>Products (
+
+	    ProductID INT PRIMARY KEY,
+
+	    ProductName NVARCHAR(100),
+	    CategoryID INT,
+
+	    CONSTRAINT FK_Category FOREIGN KEY (CategoryID) REFERENCES Categories(CategoryID)
+	);
+</pre>
+</div>
+</body>
+</html>

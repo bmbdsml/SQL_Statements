@@ -1,0 +1,27 @@
+<html>
+<body>
+<h1 style="color:#000080;"> ASC Statement (Examples)</h1>
+<div id="as">
+<pre>
+<b style="color:#800080;"> 1. ASC -> Example-1 </b>
+
+	<b> SELECT </b> FirstName, LastName, Salary FROM Employees <b> ORDER BY </b> Salary <b> ASC </b>;
+
+			- <b> ORDER BY </b> Salary : Specifies the column (`Salary`) by which the results will be sorted.
+	
+			- <b> ASC </b> : Sorts the results in ascending  order (from the smallest to the largest). 
+
+		This is actually the default sorting order, so you can omit `ASC` and it will still work the same way.
+		
+<b style="color:#800080;"> 1. ASC -> Example-2 </b>
+
+				Example: Sorting Multiple Columns in Ascending Order
+
+				You can also use `ASC` with multiple columns:
+
+	<b> SELECT </b> FirstName, LastName, HireDate FROM Employees <b> ORDER BY </b> LastName <b> ASC </b>, FirstName <b> ASC </b>;
+
+</pre>
+</div>
+</body>
+</html>

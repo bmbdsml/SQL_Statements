@@ -1,0 +1,103 @@
+<html>
+<body>
+<h1 style="color:#000080;"> Group By Statement (Examples)</h1>
+<div id="cons">
+<pre>
+
+<b style="color:#800080;"> 1. Group BY | Single Column </b> 
+
+		<b>SELECT </b>ProductID, 
+
+			<b>SUM</b>(Quantity) AS TotalQuantity,
+	   
+			<b>SUM</b>(SaleAmount) AS TotalSales
+
+		<b>FROM </b>Sales
+
+		<b>GROUP BY </b>ProductID <b>ORDER BY </b>ProductID;
+
+<b style="color:#800080;"> 2. Group BY | Multiple Column </b> 
+
+		<b>SELECT </b>ProductID, 
+
+			SaleDate,
+
+			<b>SUM</b>(SaleAmount) AS TotalSales
+
+			<b>FROM </b>Sales
+
+			<b>GROUP BY </b>ProductID, SaleDate
+
+		<b>ORDER BY </b>SaleDate, ProductID;
+
+<b style="color:#800080;"> 3. Group BY | Count the Number of Transactions Per Product  </b> 
+
+		<b>SELECT </b>ProductID,
+		
+			<b>COUNT</b>(SaleID) AS NumberOfTransactions
+	   
+		<b>FROM </b> Sales
+
+		<b>GROUP BY </b> ProductID
+
+		<b>ORDER BY </b> NumberOfTransactions DESC;
+
+<b style="color:#800080;"> 4. Group BY | Find the Average Sale Amount Per Product  </b> 
+
+		<b> SELECT </b>ProductID,
+
+			<b>AVG</b>(SaleAmount) AS AverageSaleAmount
+	   
+			<b>FROM </b>Sales
+
+			<b>GROUP BY </b>ProductID
+
+			<b>ORDER BY </b>AverageSaleAmount DESC;
+
+<b style="color:#800080;"> 5. Group BY | HAVING Clause </b> 
+
+		<b>SELECT </b>ProductID,
+
+			<b>SUM</b>(Quantity) AS TotalQuantity
+	   
+			<b>FROM </b>Sales
+
+			<b>GROUP BY </b>ProductID
+
+			<b>HAVING SUM</b>(Quantity) > 100
+
+			<b>ORDER BY </b>TotalQuantity <b>DESC;</b>
+
+<b style="color:#800080;">6. Group BY | Year and Month </b> 
+
+		<b>SELECT </b>YEAR(SaleDate) AS SaleYear,
+
+			<b>MONTH</b>(SaleDate) AS SaleMonth,
+	   
+			<b>SUM</b>(SaleAmount) AS TotalSales
+	   
+		<b>FROM </b>Sales
+
+		<b>GROUP BY </b>YEAR(SaleDate), MONTH(SaleDate)
+
+		<b>ORDER BY </b>SaleYear <b>DESC</b>, SaleMonth <b>DESC</b>;
+
+<b style="color:#800080;">7. Group BY | Calculated Field </b> 
+
+		<b>SELECT </b>ProductID,
+
+			<b>YEAR</b>(SaleDate) AS SaleYear,
+	   
+			<b>SUM</b>(SaleAmount) AS TotalSales
+	   
+		<b>FROM </b>Sales
+
+		<b>GROUP BY </b>ProductID, <b>YEAR</b>(SaleDate)
+
+		<b>ORDER BY </b>SaleYear <b>DESC</b>, TotalSales <b>DESC</b>;
+
+</pre>
+</body>
+</html>
+
+

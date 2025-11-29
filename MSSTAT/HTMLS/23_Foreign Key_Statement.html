@@ -1,0 +1,40 @@
+<html>
+<body>
+<h1 style="color:#000080;"> Foreign Key Statement (Examples)</h1>
+<div id="cons">
+<pre>
+
+<b style="color:#800080;"> 1 < Foreign Key > </b>
+
+	<b> CREATE TABLE </b> Customers (
+	
+	    CustomerID INT PRIMARY KEY,
+		
+	    FirstName VARCHAR(50),
+	    LastName VARCHAR(50),
+		
+	    Email VARCHAR(100)
+		
+	);
+
+	<b> CREATE TABLE </b> Orders (
+	
+	    OrderID INT PRIMARY KEY,
+		
+	    OrderDate DATETIME,
+		
+	    CustomerID INT,
+	    
+		Amount DECIMAL(10, 2),
+	    
+		<b> FOREIGN KEY </b> (CustomerID) <b> REFERENCES </b> Customers(CustomerID)
+	);
+
+	<b> FOREIGN KEY </b> (CustomerID) <b> REFERENCES </b> Customers(CustomerID) 
+
+	<b> ON DELETE CASCADE 
+
+	ON UPDATE CASCADE;</b> 
+
+
+

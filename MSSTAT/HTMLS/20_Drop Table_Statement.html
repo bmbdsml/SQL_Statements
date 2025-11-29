@@ -1,0 +1,42 @@
+<html>
+<body>
+<h1 style="color:#000080;"> Drop Table Statement (Examples)</h1>
+<div id="cons">
+<pre>
+
+<b style="color:#800080;">1 < Drop | Table  > </b>
+
+	<b>DROP TABLE </b>Employees;
+
+<b style="color:#800080;">2 < Drop | IF Table Exist > </b>
+
+	<b>DROP TABLE IF EXISTS </b>Employees;
+
+<b style="color:#800080;">3 < Drop | Multiple Table  > </b>
+
+	<b>DROP TABLE </b>Orders, Products, Employees;
+
+<b style="color:#800080;">4 < Drop | Specific Schema > </b>
+
+	<b>DROP TABLE </b>Sales.Transactions;
+
+<b style="color:#800080;">5 < Drop | If Foreign Key Exist for table to be Dropped > </b>
+
+	<b>ALTER TABLE </b>Orders
+
+	<b>DROP CONSTRAINT </b> FK_Orders_Customers;
+
+	<b>DROP TABLE </b> Customers;
+
+<b style="color:#800080;">6 < Drop | Dynamic SQL > </b>
+
+	<b>DECLARE </b>@TableName NVARCHAR(128) = 'Products';
+
+	<b>EXEC</b>('DROP TABLE ' + @TableName);
+
+
+
+
+
+
+

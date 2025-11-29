@@ -1,0 +1,67 @@
+
+<html>
+<body>
+<h1 style="color:#000080;"> Insert Into Select (Examples)</h1>
+<div id="cons">
+<pre>
+<b style="color:#800080;"> 1. All Rows </b>
+
+	<b>INSERT INTO customers </b>(customer_id, first_name, last_name, email)
+
+	<b>SELECT </b>client_id, first_name, last_name, email_address
+
+	<b>FROM </b>client_info;
+
+
+<b style="color:#800080;"> 2. For Specific Date </b>
+
+	<b>INSERT INTO </b>employees (employee_id, first_name, last_name, hire_date)
+
+	<b>SELECT </b>employee_id, first_name, last_name, hire_date
+
+	<b>FROM </b>new_employees
+
+	<b>WHERE </b>hire_date > '2024-01-01';
+
+
+<b style="color:#800080;"> 3. With Concat  </b>
+
+	<b>INSERT INTO </b>employees (employee_id, full_name, hire_date)
+
+	<b>SELECT </b>employee_id, CONCAT(first_name, ' ', last_name), hire_date
+
+	<b>FROM </b>new_employees;
+
+<b style="color:#800080;"> 5. For Status = 'Completed' </b>
+
+	<b>INSERT INTO </b>completed_orders (order_id, customer_id, order_date, status)
+
+	<b>SELECT </b>order_id, customer_id, order_date, status
+
+	<b>FROM </b>orders
+
+	<b>WHERE </b>status = 'Completed';
+
+<b style="color:#800080;"> 6. With Joins </b>
+
+	<b>INSERT INTO </b>employee_department (employee_id, department_name)
+
+	<b>SELECT </b>e.employee_id, d.department_name
+
+	<b>FROM </b>employees e
+
+	<b>INNER JOIN </b>departments d ON e.department_id = d.department_id;
+
+<b style="color:#800080;"> 8. Summed Data </b>
+
+	<b>INSERT INTO </b>monthly_sales_summary (month, total_sales)
+
+	<b>SELECT </b>MONTH(sale_date), <b>SUM</b>(amount)
+
+	<b>FROM </b>sales_data
+
+	<b>GROUP BY </b>MONTH(sale_date);
+
+<pre>
+</body>
+<html>

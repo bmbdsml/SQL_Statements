@@ -1,0 +1,110 @@
+<html>
+<body>
+
+<h1 style="color:#000080;"> Alter Table (Examples)</h1>
+
+<div id="alter">
+
+<pre>
+
+<b style="color:#800080;">  1.  Alter Table to Add a Column </b>
+
+	To add a new column to an existing table:
+
+	ALTER TABLE Employees
+
+	<b> ADD </b> DateOfBirth DATE;
+ 
+<b style="color:#800080;">  2.  Alter Table to Modify a Column </b>
+
+	To modify the data type of a column:
+
+ 
+	ALTER TABLE Employees
+
+	<b> ALTER COLUMN </b> EmployeeName VARCHAR(200);
+ 
+<b style="color:#800080;"> 3.  Alter Table to Drop a Column </b>
+
+	To remove a column from an existing table:
+ 
+	ALTER TABLE Employees
+
+	<b> DROP COLUMN </b> DateOfBirth;
+ 
+<b style="color:#800080;">  4.  Alter Table to Rename a Column (SQL Server 2016+) </b>
+
+	To rename an existing column in SQL Server 2016 or later:
+ 
+	<b> EXEC sp_rename </b> 'Employees.EmployeeName', 'FullName', 'COLUMN';
+
+	Note that `sp_rename` is used for renaming, not the `ALTER` statement.
+
+<b style="color:#800080;">  5.  Alter Table to Add a Constraint </b>
+
+	To add a primary key constraint to a column:
+ 
+	ALTER TABLE Employees
+
+	<b> ADD CONSTRAINT </b> PK_EmployeeID <b> PRIMARY KEY </b> (EmployeeID);
+
+	To add a foreign key constraint:
+
+ 	ALTER TABLE Orders
+
+	<b> ADD CONSTRAINT </b> FK_Orders_EmployeeID <b> FOREIGN KEY </b> (EmployeeID)
+
+	REFERENCES Employees(EmployeeID);
+ 
+<b style="color:#800080;">  6.  Alter Table to Drop a Constraint </b>
+
+	To drop a constraint, such as a foreign key constraint:
+
+	ALTER TABLE Orders
+
+	<b> DROP CONSTRAINT </b> FK_Orders_EmployeeID;
+
+<b style="color:#800080;">  7.  Alter Table to Rename a Table </b>
+
+	To rename an existing table:
+
+	<b> EXEC sp_rename </b> 'Employees', 'Staff';
+ 
+<b style="color:#800080;">  8.  Alter Table to Change Column's NULLability </b>
+
+	To change a column from `NULL` to `NOT NULL`:
+
+ 	ALTER TABLE Employees
+
+	<b> ALTER COLUMN </b> EmployeeName VARCHAR(100) NOT NULL;
+
+	To allow a column to accept `NULL` values:
+
+	ALTER TABLE Employees
+
+	<b> ALTER COLUMN </b> EmployeeName VARCHAR(100) NULL;
+
+<b style="color:#800080;">  9.  Alter Table to Add a Default Value </b>
+
+	To add a default constraint to a column:
+
+	ALTER TABLE Orders
+
+	<b> ADD CONSTRAINT </b> DF_OrderDate <b> DEFAULT </b> GETDATE() FOR OrderDate;
+ 
+<b style="color:#800080;">  10.  Alter Table to Drop a Default Constraint </b>
+
+	To drop a default constraint:
+ 
+	ALTER TABLE Orders
+
+	<b> DROP CONSTRAINT </b> DF_OrderDate;
+ 
+</pre>
+
+</div>
+
+</body>
+
+</html>
+

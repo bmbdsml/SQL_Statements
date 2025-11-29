@@ -1,0 +1,27 @@
+<html>
+<body>
+<h1 style="color:#000080;"> AND Statement (Examples)</h1>
+<div id="and">
+<pre>
+
+<b style="color:#800080;">  1. AND Example-1 </b>
+
+	<b> SELECT </b> EmployeeID, EmployeeName, Age, Department <b> FROM </b> Employees 
+    <b> WHERE </b> Age > 30 <b> AND </b> Department = 'Sales';   
+
+
+<b style="color:#800080;">  2. AND Example-2 </b> 
+
+	<b> SELECT </b> EmployeeID, EmployeeName, Age, Department, Salary <b> FROM </b> Employees 
+    <b> WHERE </b> Age > 30 <b> AND </b> Department = 'Sales' <b> AND </b> Salary > 50000;
+
+<b style="color:#800080;">  3. AND Example-3 </b>
+
+	<b> SELECT </b> EmployeeID, EmployeeName, Age, Department, Salary <b> FROM </b> Employees 
+	<b> WHERE </b> (Age > 30 OR Department = 'Sales') <b> AND </b> Salary > 50000;
+
+</b>
+</pre>
+</div>
+</body>
+</html>

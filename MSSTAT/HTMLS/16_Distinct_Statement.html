@@ -1,0 +1,56 @@
+<html>
+<body>
+<h1 style="color:#000080;"> Distinct Statement (Examples)</h1>
+<div id="cons">
+<pre>
+
+<b style="color:#800080;">1 < Selecting distinct values from a single column ></b>
+
+	<b>SELECT DISTINCT </b>Country <b>FROM</b> Customers;
+
+<b style="color:#800080;">2  < Selecting distinct values from multiple columns ></b>
+
+	<b>SELECT DISTINCT </b>FirstName, LastName <b>FROM</b> Employees;
+	
+<b style="color:#800080;">3  < Using DISTINCT with aggregate functions ></b>
+
+	<b>SELECT DISTINCT </b>Department <b>FROM </b>Employees <b>WHERE</b> Salary > 50000;
+
+<b style="color:#800080;">4  < DISTINCT with ORDER BY ></b>
+
+	<b>SELECT DISTINCT </b>City <b>FROM </b>Orders <b>ORDER BY </b>City;
+
+<b style="color:#800080;">5  < DISTINCT | JOIN statement > </b>
+
+	<b>SELECT DISTINCT </b>o.OrderID, c.CustomerName <b>FROM </b>Orders o 
+	
+	<b>INNER JOIN </b>Customers c ON o.CustomerID = c.CustomerID;
+
+<b style="color:#800080;">6  < DISTINCT | Where condition > </b>
+
+	<b>SELECT DISTINCT </b>ProductName <b>FROM</b> Products <b>WHERE</b> CategoryID = 3;
+
+<b style="color:#800080;">7  < DISTINCT | Sub Query > </b>
+
+	<b>SELECT </b>CustomerID, <b>(SELECT DISTINCT </b>ProductName <b>FROM </b>OrderDetails <b>WHERE </b>OrderID = Orders.OrderID)
+	<b>FROM </b>Orders;
+
+<b style="color:#800080;">8  < DISTINCT | Group By clause > </b>
+
+	<b>SELECT </b>DISTINCT Department <b>FROM </b>Employees <b>GROUP BY </b>Department;
+
+<b style="color:#800080;">9  < DISTINCT | Date column></b>
+
+	<b>SELECT DISTINCT </b>OrderDate <b>FROM </b>Orders <b>WHERE </b>OrderDate > '2024-01-01';
+
+<b style="color:#800080;">10  < DISTINCT | Agregate ></b>
+
+	<b>SELECT DISTINCT COUNT(DISTINCT </b>Country) <b>FROM </b>Customers;
+
+<b style="color:#800080;">11  < DISTINCT | Agregate + Top Clause ></b>
+
+	<b>SELECT DISTINCT TOP 5 </b>City <b>FROM </b>Customers <b>ORDER BY </b>City;
+
+<pre>
+</body>
+</html>
