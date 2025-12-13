@@ -1,0 +1,312 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSSQL Statements (with Examples) </title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            display: flex;
+            height: 100vh;
+        }
+        #left {
+            width: 15%;
+            background-color: #f4f4f4;
+            padding: 10px;
+            height: 100%;
+            overflow-y: auto;
+        }
+        #right {
+            width: 85%;
+            background-color: #fff;
+            padding: 10px;
+            height: 100%;
+        }
+        a {
+            display: block;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        a:hover {
+            background-color: #0056b3;
+        }
+        #htm-container {
+            width: 100%;
+            height: 100%;
+        }
+		p
+		{
+		color:#800080;
+		text-align:justify;
+		}
+    </style>
+</head>
+
+<body>
+
+    <div id="left">
+
+			<label for="stat">Choose a Statement:</label>
+
+			<select name="stat" id="stat" onchange="displaySelectedOption()">
+			<option value="Add">Add Constraint</option>
+			<option value="Alter">Alter Table</option>
+			<option value="And">AND Statement</option>
+			<option value="Alias">AS (Alias)</option>
+			<option value="Backup">(Backup) Statement</option>
+			<option value="Between">(Between) Statement</option>			
+			<option value="Case">(Case) Statement</option>	
+			<option value="Createdb">(Create Database)</option>				
+			<option value="Createindex">(Create Index)</option>							
+			<option value="Createview">(Create View)</option>	
+			<option value="Createtable">(Create Table)</option>				
+			<option value="Createproc">(Create Procedure)</option>							
+			<option value="Deletestat">(Delete) Statement</option>			
+			<option value="Descstat">(Desc) Statement</option>			
+			<option value="Diststat">(Distinct)</option>			
+			<option value="Dropcol">(Drop Column)</option>
+			<option value="Dropdb">(Drop Database)</option>			
+			<option value="Dropidx">(Drop Index)</option>			
+			<option value="Droptable">(Drop Table)</option>						
+			<option value="Dropview">(Drop View)</option>				
+			<option value="Dropdef">(Drop Default)</option>			
+			<option value="Foreign">(Foreign Key)</option>				
+			<option value="Groupby">(Group By)</option>			
+			<option value="Innerjoin">(Inner Join)</option>						
+			<option value="Insertinto">(Insert into Select)</option>
+			<option value="Like">(Like Statement)</option>
+			<option value="Or">(OR Statement)</option>
+			<option value="Orderby">(Order By)</option>
+			<option value="Primary">(Primary Key)</option>			
+			<option value="SP">(Stored Procedure)</option>		
+			<option value="Rownum">( Row Num ) Statement</option>			
+			<option value="Selectinto">( Select Into ) Statement)</option>			
+
+			</select>
+	
+        <a href="#" onclick="loadHTM('./htmls/1_ADD CONSTRAINT.html')">1. Add Constraint</a>		
+        <a href="#" onclick="loadHTM('./htmls/2_ALTER Table.html')">2. Alter Table</a>				
+        <a href="#" onclick="loadHTM('./htmls/3_AND Statement.html')">3. (AND) Statement</a>				
+        <a href="#" onclick="loadHTM('./htmls/4_AS_Statement.html')">4. (AS) Statement</a>				
+        <a href="#" onclick="loadHTM('./htmls/5_ASC_Statement.html')">5. (ASC) Statement</a>
+        <a href="#" onclick="loadHTM('./htmls/6_Backup_Statement.html')">6. (Backup) Statement</a>						
+        <a href="#" onclick="loadHTM('./htmls/7_BETWEEN_Statement.html')">7. (Between) Statement</a>	
+        <a href="#" onclick="loadHTM('./htmls/8_CASE_Statement.html')">8. (Case) Statement</a>								
+        <a href="#" onclick="loadHTM('./htmls/9_Create Database_Statement.html')">9. (Create Database)</a>		
+        <a href="#" onclick="loadHTM('./htmls/10_Create Index_Statement.html')">10. (Create Index)</a>								
+        <a href="#" onclick="loadHTM('./htmls/11_Create View_Statement.html')">11. (Create View)</a>		
+	    <a href="#" onclick="loadHTM('./htmls/12_Create Table_Statement.html')">12. (Create Table)</a>	
+        <a href="#" onclick="loadHTM('./htmls/13_Create Procedure_Statement.html')">13. (Create Procedure)</a>		
+        <a href="#" onclick="loadHTM('./htmls/14_Delete Statement.html')">14. (Delete) Statement</a>								
+        <a href="#" onclick="loadHTM('./htmls/15_Desc_Statement.html')">15. (Desc) Statement</a>						
+        <a href="#" onclick="loadHTM('./htmls/16_Distinct_Statement.html')">16. (Distinct)</a>		
+        <a href="#" onclick="loadHTM('./htmls/17_Drop_Column_Statement.html')">17. (Drop Column)</a>		
+        <a href="#" onclick="loadHTM('./htmls/18_Drop Database_Statement.html')">18. (Drop Database)</a>		
+        <a href="#" onclick="loadHTM('./htmls/19_Drop Index_Statement.html')">19. (Drop Index)</a>		
+        <a href="#" onclick="loadHTM('./htmls/20_Drop Table_Statement.html')">20. (Drop Table)</a>		
+        <a href="#" onclick="loadHTM('./htmls/21_Drop View_Statement.html')">21. (Drop View)</a>		
+        <a href="#" onclick="loadHTM('./htmls/22_Drop Default Constraint_Statement.html')">22. (Drop Default)</a>								
+        <a href="#" onclick="loadHTM('./htmls/23_Foreign Key_Statement.html')">23. (Foreign Key)</a>		
+        <a href="#" onclick="loadHTM('./htmls/24_Group BY.html')">24. (Group By)</a>		
+        <a href="#" onclick="loadHTM('./htmls/25_Inner Join.html')">25. (Inner Join)</a>		
+        <a href="#" onclick="loadHTM('./htmls/26_insert into select.html')">26. (Insert Into Select)</a>		
+        <a href="#" onclick="loadHTM('./htmls/27_like stat.html')">27. (Like Statement)</a>		
+        <a href="#" onclick="loadHTM('./htmls/28_or stat.html')">28. (OR Statement)</a>		
+        <a href="#" onclick="loadHTM('./htmls/29_order by.html')">29. (Order By Statement)</a>		
+        <a href="#" onclick="loadHTM('./htmls/30_primary key stat.html')">30. (Primary Key)</a>		
+        <a href="#" onclick="loadHTM('./htmls/31_SP Stat.html')">31. (Stored Proc)</a>		
+        <a href="#" onclick="loadHTM('./htmls/32_Row Num.html')">32. ( Row Num ) Statement</a>		
+        <a href="#" onclick="loadHTM('./htmls/33_Select INTO.html')">33. (Select Into) Statement</a>		
+		
+    </div>
+
+    <div id="right">
+        <div id="htm-container">
+            <!-- Image will be loaded here -->
+            <iframe id="HtmlViewer" src="" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+
+    <script>
+	
+        function loadHTM(htmFile) {
+		
+            // Set the PDF file to the iframe
+			
+            var HtmlViewer= document.getElementById('HtmlViewer');
+			
+            HtmlViewer.src = htmFile;
+			
+        }
+		
+		function displaySelectedOption() 
+		
+		{
+
+
+     	 var HtmlViewer= document.getElementById('HtmlViewer');			
+		 
+		 var htmFile;	 
+
+			var selectElement = document.getElementById("stat");		 
+			//var selectedValue = selectElement.options[selectElement.selectedIndex].text;
+			var selectedValue = selectElement.options[selectElement.selectedIndex].value;
+	 		 
+	 switch(selectedValue) 
+		 
+	 {
+		 
+			case "Add" :
+				htmFile="./htmls/1_ADD CONSTRAINT.html";
+				HtmlViewer.src = htmFile;
+			break;
+			
+			case "Alter" :
+				htmFile='./htmls/2_ALTER Table.html';
+				HtmlViewer.src = htmFile;
+				break;	
+			case "And" :
+				htmFile="./htmls/3_AND Statement.html";		
+				HtmlViewer.src = htmFile;				
+				break;
+			case "Alias" :
+				htmFile="./htmls/4_AS_Statement.html";
+				HtmlViewer.src = htmFile;				
+				break;
+			case "Backup" :
+				htmFile="./htmls/6_Backup_Statement.html";		
+				HtmlViewer.src = htmFile;				
+				break;
+			case "Between" :
+				htmFile="./htmls/7_BETWEEN_Statement.html";		
+				HtmlViewer.src = htmFile;				
+				break;
+			case "Case" :
+				htmFile="./htmls/8_CASE_Statement.html";
+				HtmlViewer.src = htmFile;				
+				break;				
+			case "Createdb" :
+				htmFile="./htmls/9_Create Database_Statement.html";
+				HtmlViewer.src = htmFile;				
+				break;
+			case "Createindex" :
+				htmFile="./htmls/10_Create Index_Statement.html";
+				HtmlViewer.src = htmFile;				
+				break;
+			case "Createview" :
+				htmFile="./htmls/11_Create View_Statement.html";
+				HtmlViewer.src = htmFile;				
+				break;
+			case "Createtable" :
+				htmFile="./htmls/12_Create Table_Statement.html";
+				HtmlViewer.src = htmFile;				
+				break;
+			case "Createproc" :
+				htmFile="./htmls/13_Create Procedure_Statement.html";			
+				HtmlViewer.src = htmFile;				
+				break;
+			case "Deletestat" :
+				htmFile="./htmls/14_Delete Statement.html";
+				HtmlViewer.src = htmFile;				
+				break;
+			case "Descstat" :
+				htmFile="./htmls/15_Desc_Statement.html";
+				HtmlViewer.src = htmFile;				
+				break;
+			case "Diststat" :
+				htmFile="./htmls/16_Distinct_Statement.html";
+				HtmlViewer.src = htmFile;				
+				break;
+			case "Dropcol" :
+				htmFile="./htmls/17_Drop_Column_Statement.html";		
+				HtmlViewer.src = htmFile;				
+				break;
+			case "Dropdb" :
+				htmFile="./htmls/18_Drop Database_Statement.html";		
+				HtmlViewer.src = htmFile;				
+				break;
+			case "Dropidx" :
+				htmFile="./htmls/19_Drop Index_Statement.html";		
+				HtmlViewer.src = htmFile;				
+				break;
+			case "Droptable" :
+				htmFile="./htmls/20_Drop Table_Statement.html";		
+				HtmlViewer.src = htmFile;				
+				break;
+			case "Dropview" :
+				htmFile="./htmls/21_Drop View_Statement.html";		
+				HtmlViewer.src = htmFile;				
+				break;
+			case "Dropdef" :
+				htmFile="./htmls/22_Drop Default Constraint_Statement.html";		
+				HtmlViewer.src = htmFile;				
+				break;
+			case "Foreign" :
+				htmFile="./htmls/23_Foreign Key_Statement.html";		
+				HtmlViewer.src = htmFile;				
+				break;
+			case "Groupby" :
+				htmFile="./htmls/24_Group BY.html";		
+				HtmlViewer.src = htmFile;				
+				break;
+			case "Innerjoin" :
+				htmFile="./htmls/25_Inner Join.html";		
+				HtmlViewer.src = htmFile;				
+				break;
+			case "Insertinto" :
+				htmFile="./htmls/26_insert into select.html";		
+				HtmlViewer.src = htmFile;				
+				break;
+				
+			case "Like" :
+				htmFile="./htmls/27_like stat.html";		
+				HtmlViewer.src = htmFile;				
+				break;
+			case "Or" :
+				htmFile="./htmls/28_or stat.html";		
+				HtmlViewer.src = htmFile;				
+				break;
+			case "Orderby":				
+				htmFile="./htmls/29_order by.html";		
+				HtmlViewer.src = htmFile;				
+				break;
+
+			case "Primary":				
+				htmFile="./htmls/30_primary key stat.html";		
+				HtmlViewer.src = htmFile;				
+				break;
+
+			case "SP":				
+				htmFile="./htmls/31_SP Stat.html";		
+				HtmlViewer.src = htmFile;				
+				break;
+
+			case "Rownum":				
+				htmFile="./htmls/32_Row Num.html";		
+				HtmlViewer.src = htmFile;				
+				break;
+
+			case "Selectinto":				
+				htmFile="./htmls/33_Select INTO.html";		
+				HtmlViewer.src = htmFile;				
+				break;
+
+
+
+        }
+		
+	   }	
+	   
+    </script>
+</body>
+</html>
